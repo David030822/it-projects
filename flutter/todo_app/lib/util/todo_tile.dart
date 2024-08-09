@@ -11,7 +11,7 @@ class ToDoTile extends StatelessWidget {
 
   ToDoTile({
     super.key,
-    required this.taskName,
+    this.taskName = '',
     required this.taskCompleted,
     required this.onChanged,
     required this.deleteFunction,
