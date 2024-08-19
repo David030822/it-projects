@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 
-void main() {
-  WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
+Future main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
+  FlutterNativeSplash.removeAfter(initialization);
 
   runApp(const MyApp());
+}
 
-  FlutterNativeSplash.remove();
+Future initialization(BuildContext? context) async {
+  await Future.delayed(Duration(seconds: 3));
 }
 
 class MyApp extends StatelessWidget {
