@@ -1,4 +1,5 @@
 import 'package:fitness_app/pages/home_page.dart';
+import 'package:fitness_app/pages/login_page.dart';
 import 'package:fitness_app/themes/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
       title: 'Fitness App',
       debugShowCheckedModeBanner: false,
       theme: Provider.of<ThemeProvider>(context).themeData,
-      home: const HomePage(),
+      home: LoginPage(),
     );
   }
 }
