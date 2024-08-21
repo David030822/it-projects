@@ -23,6 +23,7 @@ class LoginPage extends StatelessWidget {
       body: SafeArea(
         child: Center(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               SizedBox(height: 50),
           
@@ -86,7 +87,7 @@ class LoginPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => HomePage()
+                      builder: (context) => HomePage(),
                     ),
                   );
                 },
@@ -137,6 +138,24 @@ class LoginPage extends StatelessWidget {
 
                   // apple button
                   SquareTile(imagePath: 'assets/images/apple.png')
+                ],
+              ),
+
+              const SizedBox(height: 50),
+
+              // not a member? Register now
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'Not a member?',
+                    style: TextStyle(color: Theme.of(context).colorScheme.inversePrimary),
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    'Register now',
+                    style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                  ),
                 ],
               )
             ],
