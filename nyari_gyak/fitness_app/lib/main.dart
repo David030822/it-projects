@@ -1,13 +1,23 @@
 import 'package:fitness_app/pages/home_page.dart';
+import 'package:fitness_app/themes/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:provider/provider.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   FlutterNativeSplash.removeAfter(initialization);
 
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        // Theme Provider
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 Future initialization(BuildContext? context) async {
@@ -23,10 +33,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Fitness App',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.orange),
-        useMaterial3: true,
-      ),
+      theme: Provider.of<ThemeProvider>(context).themeData,
       home: const HomePage(),
     );
   }
