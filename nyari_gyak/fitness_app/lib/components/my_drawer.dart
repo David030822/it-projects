@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:fitness_app/components/drawer_tile.dart';
+import 'package:fitness_app/pages/home_page.dart';
 import 'package:fitness_app/pages/login_page.dart';
 import 'package:fitness_app/pages/settings_page.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,15 @@ class MyDrawer extends StatelessWidget {
                 DrawerTile(
                   title: 'H O M E',
                   leading: const Icon(Icons.home),
-                  onTap: () => Navigator.pop(context),
+                  onTap: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => HomePage()
+                      ),
+                    );
+                  } 
                 ),
         
                 // settings tile

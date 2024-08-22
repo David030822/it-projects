@@ -3,7 +3,11 @@
 import 'package:fitness_app/components/my_button.dart';
 import 'package:fitness_app/components/my_text_field.dart';
 import 'package:fitness_app/components/square_tile.dart';
+import 'package:fitness_app/pages/apple_page.dart';
+import 'package:fitness_app/pages/forgot_password_page.dart';
+import 'package:fitness_app/pages/google_page.dart';
 import 'package:fitness_app/pages/home_page.dart';
+import 'package:fitness_app/pages/register_page.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -70,9 +74,20 @@ class LoginPage extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
-                    Text(
-                      'Forgot Password?',
-                      style: TextStyle(color: Theme.of(context).colorScheme.inversePrimary)
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ForgotPasswordPage(),
+                          ),
+                        );
+                      },
+                      child: Text(
+                        'Forgot Password?',
+                        style: TextStyle(color: Theme.of(context).colorScheme.inversePrimary)
+                      ),
                     ),
                   ],
                 ),
@@ -82,6 +97,7 @@ class LoginPage extends StatelessWidget {
 
               // sign in button
               MyButton(
+                text: 'Sign In',
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.push(
@@ -132,12 +148,40 @@ class LoginPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // google button
-                  SquareTile(imagePath: 'assets/images/google.png'),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => GooglePage(),
+                        ),
+                      );
+                    },
+                    child: SquareTile(
+                      height: 40,
+                      imagePath: 'assets/images/google.png'
+                      )
+                    ),
 
                   SizedBox(width: 10),
 
                   // apple button
-                  SquareTile(imagePath: 'assets/images/apple.png')
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ApplePage(),
+                        ),
+                      );
+                    },
+                    child: SquareTile(
+                      height: 40,
+                      imagePath: 'assets/images/apple.png'
+                    ),
+                  ),
                 ],
               ),
 
@@ -152,9 +196,20 @@ class LoginPage extends StatelessWidget {
                     style: TextStyle(color: Theme.of(context).colorScheme.inversePrimary),
                   ),
                   const SizedBox(width: 4),
-                  Text(
-                    'Register now',
-                    style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                  GestureDetector(
+                    onTap: () {
+                      Navigator.pop(context);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RegisterPage(),
+                        ),
+                      );
+                    },
+                    child: Text(
+                      'Register now',
+                      style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ],
               )

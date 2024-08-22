@@ -26,15 +26,15 @@ class MyBottomNavBar extends StatelessWidget {
             text: 'Home'
           ),
           GButton(
-            icon: Icons.run_circle,
+            icon: Icons.directions_run,
             text: 'Training',
           ),
           GButton(
-            icon: Icons.fork_left,
+            icon: Icons.restaurant,
             text: 'Food'
           ),
           GButton(
-            icon: Icons.apple,
+            icon: Icons.emoji_events,
             text: 'Achievements'
           ),
         ],
