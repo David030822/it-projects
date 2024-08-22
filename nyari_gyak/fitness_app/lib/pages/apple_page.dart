@@ -12,6 +12,9 @@ class ApplePage extends StatelessWidget {
   // text editing controller
   final emailController = TextEditingController();
 
+  // for textfield focus
+  // FocusNode myFocusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,6 +37,7 @@ class ApplePage extends StatelessWidget {
               // email
               MyTextField(
                 controller: emailController,
+                // focusNode: myFocusNode,
                 hintText: 'Enter your email',
                 obscureText: false
               ),

@@ -12,6 +12,7 @@ class DrawerTile extends StatelessWidget {
     required this.onTap,
   });
 
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 25.0),

@@ -7,7 +7,6 @@ import 'package:fitness_app/pages/food_page.dart';
 import 'package:fitness_app/pages/main_page.dart';
 import 'package:fitness_app/pages/training_page.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

@@ -1,4 +1,3 @@
-import 'package:fitness_app/pages/home_page.dart';
 import 'package:fitness_app/pages/login_page.dart';
 import 'package:fitness_app/themes/theme_provider.dart';
 import 'package:flutter/material.dart';

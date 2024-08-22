@@ -9,6 +9,9 @@ class ForgotPasswordPage extends StatelessWidget {
   // text editing controller
   final emailController = TextEditingController();
 
+  // for textfield focus
+  // FocusNode myFocusNode = FocusNode();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,24 +21,25 @@ class ForgotPasswordPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
           
               // key logo
-              Icon(
+              const Icon(
                 Icons.key,
                 size: 100,
               ),
           
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               
               // email
               MyTextField(
+                // focusNode: myFocusNode,
                 controller: emailController,
                 hintText: 'Enter your email',
                 obscureText: false
               ),
 
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
 
               // confirm button
               MyButton(
@@ -45,7 +49,7 @@ class ForgotPasswordPage extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => HomePage(),
+                      builder: (context) => const HomePage(),
                     ),
                   );
                 }
