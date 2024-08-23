@@ -13,7 +13,7 @@ class AboutPage extends StatelessWidget {
         elevation: 0,
         backgroundColor: Colors.transparent, 
       ),
-      drawer: MyDrawer(),
+      drawer: const MyDrawer(),
       body: Center(
         child: Text(
           'Fitness App created by Dávid',

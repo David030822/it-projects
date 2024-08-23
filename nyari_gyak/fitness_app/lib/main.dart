@@ -1,3 +1,4 @@
+import 'package:fitness_app/database/goal_database.dart';
 import 'package:fitness_app/pages/login_page.dart';
 import 'package:fitness_app/themes/theme_provider.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +8,18 @@ import 'package:provider/provider.dart';
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
+  // initialize database
+  await GoalDatabase.initialize();
+  await GoalDatabase().saveFirstLaunchDate();
+
   FlutterNativeSplash.removeAfter(initialization);
 
   runApp(
     MultiProvider(
       providers: [
+        // Goal provider
+        ChangeNotifierProvider(create: (context) => GoalDatabase()),
+        
         // Theme Provider
         ChangeNotifierProvider(create: (context) => ThemeProvider()),
       ],
@@ -34,7 +42,7 @@ class MyApp extends StatelessWidget {
       title: 'Fitness App',
       debugShowCheckedModeBanner: false,
       theme: Provider.of<ThemeProvider>(context).themeData,
-      home: LoginPage(),
+      home: const LoginPage(),
     );
   }
 }
