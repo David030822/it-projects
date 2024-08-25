@@ -5,6 +5,7 @@ import 'package:fitness_app/models/weather_model.dart';
 import 'package:fitness_app/services/weather_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 import 'dart:async';
 import 'package:pedometer/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -46,7 +47,29 @@ class _MainPageState extends State<MainPage> {
   }
 
   // weather animations
+  String getWeatherAnimation(String? mainCondition) {
+    if (mainCondition == null) return 'assets/animations/sunny.json'; // default to sunny
 
+    switch (mainCondition.toLowerCase()) {
+      case 'clouds':
+      case 'mist':
+      case 'smoke':
+      case 'haze':
+      case 'dust':
+      case 'fog':
+        return 'assets/animations/cloudy.json';
+      case 'rain':
+      case 'drizzle':
+      case 'shower rain':
+        return 'assets/animations/rainy.json';
+      case 'thunderstorm':
+        return 'assets/animations/storm.json';
+      case 'clear':
+        return 'assets/animations/sunny.json';
+      default:
+        return 'assets/animations/sunny.json';
+    }
+  }
 
   @override
   void initState() {
@@ -135,7 +158,7 @@ class _MainPageState extends State<MainPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 50),
+                SizedBox(height: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
@@ -161,18 +184,36 @@ class _MainPageState extends State<MainPage> {
                         ),
                       ],
                     ),
+                    SizedBox(height: 20),
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         // city name
-                        Text(_weather?.cityName ?? "Loading city..."),
+                        Text(
+                          _weather?.cityName ?? "Loading city...",
+                          style: TextStyle(fontSize: 20),
+                        ),
+
+                        // animation
+                        Lottie.asset(getWeatherAnimation(_weather?.mainCondition)),
 
                         // temperature
-                        Text('${_weather?.temperature.round()}°C'),
+                        Text(
+                          '${_weather?.temperature.round()}°C',
+                          style: TextStyle(fontSize: 20),
+                        ),
+
+                        // weather condition
+                        Text(
+                          _weather?.mainCondition ?? "",
+                          style: TextStyle(fontSize: 20),
+                        ),
                       ],
                     )
                   ],
                 ),
+
+                SizedBox(height: 20),
 
                 // Pedometer Section
                 Padding(
