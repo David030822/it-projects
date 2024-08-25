@@ -5,7 +5,6 @@ import 'package:fitness_app/database/goal_database.dart';
 import 'package:fitness_app/models/goal.dart';
 import 'package:fitness_app/util/goal_util.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 

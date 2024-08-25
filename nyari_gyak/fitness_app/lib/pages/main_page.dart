@@ -1,6 +1,8 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:fitness_app/components/square_tile.dart';
+import 'package:fitness_app/models/weather_model.dart';
+import 'package:fitness_app/services/weather_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:async';
@@ -15,14 +17,44 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  // pedometer
   late Stream<StepCount> _stepCountStream;
   late Stream<PedestrianStatus> _pedestrianStatusStream;
   String _status = '?', _steps = '?';
+
+  // weather api key
+  final _weatherService = WeatherService('b0fa52b058d9fc9dbec6426c6851406e');
+  Weather? _weather;
+
+  // fetch weather
+  _fetchWeather() async {
+    // get the current city
+    String cityName = await _weatherService.getCurrentCity();
+
+    // get weather for city
+    try {
+      final weather = await _weatherService.getWeather(cityName);
+      setState(() {
+        _weather = weather;
+      });
+    }
+
+    // any errors
+    catch(e) {
+      print(e);
+    }
+  }
+
+  // weather animations
+
 
   @override
   void initState() {
     super.initState();
     initPlatformState();
+
+    // fetch weather on startup
+    _fetchWeather();
   }
 
   void onStepCount(StepCount event) {
@@ -129,6 +161,16 @@ class _MainPageState extends State<MainPage> {
                         ),
                       ],
                     ),
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        // city name
+                        Text(_weather?.cityName ?? "Loading city..."),
+
+                        // temperature
+                        Text('${_weather?.temperature.round()}°C'),
+                      ],
+                    )
                   ],
                 ),
 
