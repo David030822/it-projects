@@ -119,6 +119,7 @@ class _MainPageState extends State<MainPage> {
     bool granted = await _checkActivityRecognitionPermission();
     if (!granted) {
       // Tell the user that the app won't work
+      debugPrint('Nem megy');
       return;
     }
 
