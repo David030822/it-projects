@@ -9,12 +9,17 @@ class TrainingPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       body: Center(
-        child: Text(
-          'Training Page',
-          style: GoogleFonts.dmSerifText(
-            fontSize: 48,
-            color: Theme.of(context).colorScheme.inversePrimary,
-          ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Training Page',
+              style: GoogleFonts.dmSerifText(
+                fontSize: 48,
+                color: Theme.of(context).colorScheme.inversePrimary,
+              ),
+            ),
+          ],
         ),
       ),
     );

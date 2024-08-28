@@ -1,12 +1,23 @@
+import 'package:firebase_core/firebase_core.dart';
+import 'package:fitness_app/api/firebase_api.dart';
 import 'package:fitness_app/database/goal_database.dart';
+import 'package:fitness_app/firebase_options.dart';
 import 'package:fitness_app/pages/login_page.dart';
+import 'package:fitness_app/pages/notification_page.dart';
+import 'package:fitness_app/pages/training_page.dart';
 import 'package:fitness_app/themes/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
+
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // initialize Firebase
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await FirebaseApi().initNotifications();
 
   // initialize database
   await GoalDatabase.initialize();
@@ -43,6 +54,11 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: Provider.of<ThemeProvider>(context).themeData,
       home: const LoginPage(),
+      navigatorKey: navigatorKey,
+      routes: {
+        '/training_page': (context) => const TrainingPage(),
+        '/noti_screen': (context) => const NotificationPage(),
+      },
     );
   }
 }
