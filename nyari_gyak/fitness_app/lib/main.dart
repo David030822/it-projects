@@ -5,6 +5,10 @@ import 'package:fitness_app/firebase_options.dart';
 import 'package:fitness_app/pages/login_page.dart';
 import 'package:fitness_app/pages/notification_page.dart';
 import 'package:fitness_app/pages/training_page.dart';
+import 'package:fitness_app/responsive/desktop_scaffold.dart';
+import 'package:fitness_app/responsive/mobile_scaffold.dart';
+import 'package:fitness_app/responsive/responsive_layout.dart';
+import 'package:fitness_app/responsive/tablet_scaffold.dart';
 import 'package:fitness_app/themes/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
@@ -53,7 +57,11 @@ class MyApp extends StatelessWidget {
       title: 'Fitness App',
       debugShowCheckedModeBanner: false,
       theme: Provider.of<ThemeProvider>(context).themeData,
-      home: const LoginPage(),
+      home: ResponsiveLayout(
+        mobileScaffold: const LoginPage(),
+        tabletScaffold: const TabletScaffold(),
+        desktopScaffold: const DesktopScaffold(),
+      ),
       navigatorKey: navigatorKey,
       routes: {
         '/training_page': (context) => const TrainingPage(),
