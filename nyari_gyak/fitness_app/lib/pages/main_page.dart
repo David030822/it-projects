@@ -1,7 +1,9 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:fitness_app/components/my_text_field.dart';
 import 'package:fitness_app/components/square_tile.dart';
 import 'package:fitness_app/models/weather_model.dart';
+import 'package:fitness_app/pages/training_page.dart';
 import 'package:fitness_app/services/weather_service.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,6 +20,9 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  // text controller for calories
+  final _caloriesController = TextEditingController();
+
   // pedometer
   late Stream<StepCount> _stepCountStream;
   late Stream<PedestrianStatus> _pedestrianStatusStream;
@@ -76,8 +81,21 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     initPlatformState();
 
+    _caloriesController.addListener(_updateText);
+
     // fetch weather on startup
     _fetchWeather();
+  }
+
+  void _updateText() {
+    print("Text updated: ${_caloriesController.text}");
+    setState(() {});
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _caloriesController.dispose();
   }
 
   void onStepCount(StepCount event) {
@@ -143,31 +161,52 @@ class _MainPageState extends State<MainPage> {
             padding: const EdgeInsets.all(16.0),
             child: Column(
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    // heading
-                    Padding(
-                      padding: const EdgeInsets.only(left: 25.0),
-                      child: Text(
-                        'Fitness App',
-                        style: GoogleFonts.dmSerifText(
-                          fontSize: 36,
-                          color: Theme.of(context).colorScheme.inversePrimary,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 10),
+                // Column(
+                //   crossAxisAlignment: CrossAxisAlignment.center,
+                //   children: [
+                //     // heading
+                //     Padding(
+                //       padding: const EdgeInsets.only(left: 25.0),
+                //       child: Text(
+                //         'Fitness App',
+                //         style: GoogleFonts.dmSerifText(
+                //           fontSize: 36,
+                //           color: Theme.of(context).colorScheme.inversePrimary,
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
+                // SizedBox(height: 10),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => TrainingPage(),
+                              ),
+                            );
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 20.0),
+                            child: SquareTile(
+                              imagePath: 'assets/images/applogo_step_b.png',
+                              height: 50,
+                            ),
+                          ),
+                        ),
+
+                        const SizedBox(width: 10),
+
                         Padding(
-                          padding: const EdgeInsets.only(left: 25.0),
+                          padding: const EdgeInsets.only(right: 20.0),
                           child: Text(
                             'Home Page',
                             style: GoogleFonts.dmSerifText(
@@ -176,16 +215,33 @@ class _MainPageState extends State<MainPage> {
                             ),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(right: 25.0),
-                          child: SquareTile(
-                            imagePath: 'assets/images/applogo_step_b.png',
-                            height: 50,
-                          ),
-                        ),
                       ],
                     ),
+
+                    // Row(
+                    //   children: [
+                    //     MyTextField(
+                    //       controller: _caloriesController,
+                    //       hintText: 'Calories to burn per day',
+                    //       obscureText: false
+                    //     ),
+
+                    //     const SizedBox(width: 15),
+
+                    //     Text(
+                    //       _caloriesController.text.isNotEmpty
+                    //           ? _caloriesController.text
+                    //           : "No goal set",
+                    //       style: GoogleFonts.dmSerifText(
+                    //         fontSize: 24,
+                    //         color: Theme.of(context).colorScheme.inversePrimary,
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
+
                     SizedBox(height: 20),
+
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

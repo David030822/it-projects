@@ -7,4 +7,6 @@ var myAppBar = AppBar(
       backgroundColor: Colors.grey[800]
 );
 
-var myDrawer = MyDrawer();
+var myDrawer = const MyDrawer();
+
+const List<String> workoutCategories = <String>['Running', 'Cycling', 'Walking', 'Hiking'];

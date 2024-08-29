@@ -136,10 +136,10 @@ class _GoalsPageState extends State<GoalsPage> {
       builder: (context) => AlertDialog(
         title: const Text('Are you sure you want to delete?'),
         actions: [
-          // save button
+          // delete button
           MaterialButton(
             onPressed: () {
-              // save to db
+              // delete from db
               context.read<GoalDatabase>().deleteGoal(goal.id);
 
               // pop box
