@@ -58,7 +58,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: Provider.of<ThemeProvider>(context).themeData,
       home: ResponsiveLayout(
-        mobileScaffold: const LoginPage(),
+        mobileScaffold: /*const MobileScaffold(),*/ const LoginPage(),
         tabletScaffold: const TabletScaffold(),
         desktopScaffold: const DesktopScaffold(),
       ),
