@@ -52,6 +52,7 @@ dependencies:
   firebase_core: ^2.24.2
   firebase_messaging: ^14.7.10
   stop_watch_timer: ^3.2.1
+  intl:
 
 dev_dependencies:
   flutter_test:
