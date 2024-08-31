@@ -68,10 +68,11 @@ Food _foodDeserialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  final object = Food();
-  object.calories = reader.readDouble(offsets[0]);
+  final object = Food(
+    reader.readString(offsets[1]),
+    reader.readDouble(offsets[0]),
+  );
   object.id = id;
-  object.name = reader.readString(offsets[1]);
   return object;
 }
 

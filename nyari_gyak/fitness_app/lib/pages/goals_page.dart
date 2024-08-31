@@ -20,7 +20,7 @@ class _GoalsPageState extends State<GoalsPage> {
   @override
   void initState() {
 
-    // read existing habits on app startup
+    // read existing goals on app startup
     Provider.of<GoalDatabase>(context, listen: false).readGoals();
 
     super.initState();

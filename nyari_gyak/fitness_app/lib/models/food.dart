@@ -12,4 +12,7 @@ class Food {
 
   // food calories
   late double calories;
+
+  // constructor
+  Food(this.name, this.calories);
 }

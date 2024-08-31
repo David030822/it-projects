@@ -1,7 +1,10 @@
 import 'package:fitness_app/components/my_text_field.dart';
+import 'package:fitness_app/database/food_database.dart';
+import 'package:fitness_app/models/food.dart';
 import 'package:fitness_app/util/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class FoodPage extends StatefulWidget {
   const FoodPage({super.key});
@@ -11,13 +14,18 @@ class FoodPage extends StatefulWidget {
 }
 
 class _FoodPageState extends State<FoodPage> {
+  // food name & calories controllers
+  final _foodNameController = TextEditingController();
+  final _foodCaloriesController = TextEditingController();
+
   // calories controller
   final _caloriesController = TextEditingController();
   String _calories = '';
 
   @override
   void initState() {
-    super.initState();
+    // read existing foods on app startup
+    Provider.of<FoodDatabase>(context, listen: false).readFoods();
 
     // Listen for changes to the text field
     _caloriesController.addListener(() {
@@ -27,12 +35,164 @@ class _FoodPageState extends State<FoodPage> {
         }
       });
     });
+
+    super.initState();
   }
 
   @override
   void dispose() {
+    _foodNameController.dispose();
+    _foodCaloriesController.dispose();
     _caloriesController.dispose();
     super.dispose();
+  }
+
+  // create new food
+  void createNewGoal() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: Column(
+          children: [
+            TextField(
+              controller: _foodNameController,
+              decoration: const InputDecoration(
+                hintText: 'Name of the new meal',
+              ),
+            ),
+            TextField(
+              controller: _foodCaloriesController,
+              decoration: const InputDecoration(
+                hintText: 'Number of calories',
+              ),
+            ),
+          ],
+        ),
+        actions: [
+          // save button
+          MaterialButton(
+            onPressed: () {
+              // get the new food name & calories
+              String newFoodName = _foodNameController.text;
+              double newFoodCalories = double.parse(_foodCaloriesController.text);
+
+              // save to db
+              context.read<FoodDatabase>().addFood(newFoodName, newFoodCalories);
+
+              // pop box
+              Navigator.pop(context);
+
+              // clear controllers
+              _foodNameController.clear();
+              _foodCaloriesController.clear();
+            },
+            child: const Text('Save'),
+          ),
+
+          // cancel button
+          MaterialButton(
+            onPressed: () {
+              // pop box
+              Navigator.pop(context);
+
+              // clear controllers
+              _foodNameController.clear();
+              _foodCaloriesController.clear();
+            },
+            child: const Text('Cancel'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  // edit food box
+  void editFoodBox(Food food) {
+    // set the controller's text to the food's current name & calories
+    _foodNameController.text = food.name;
+    _foodCaloriesController.text = food.calories.toString();
+
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        content: Column(
+          children: [
+            TextField(
+              controller: _foodNameController,
+            ),
+            TextField(
+              controller: _foodCaloriesController,
+            ),
+          ],
+        ),
+        actions: [
+          // save button
+          MaterialButton(
+            onPressed: () {
+              // get the new food name
+              String newFoodName = _foodNameController.text;
+              double newFoodCalories = double.parse(_foodCaloriesController.text);
+
+              // save to db
+              context.read<FoodDatabase>().updateFood(food.id, newFoodName, newFoodCalories);
+
+              // pop box
+              Navigator.pop(context);
+
+              // clear controllers
+              _foodNameController.clear();
+              _foodCaloriesController.clear();
+            },
+            child: const Text('Save'),
+          ),
+
+          // cancel button
+          MaterialButton(
+            onPressed: () {
+              // pop box
+              Navigator.pop(context);
+
+              // clear controllers
+              _foodNameController.clear();
+              _foodCaloriesController.clear();
+            },
+            child: const Text('Cancel'),
+          ),
+        ],
+      )
+    );
+  }
+
+  // delete goal box
+  void deleteGoalBox(Food food) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Are you sure you want to delete?'),
+        actions: [
+          // delete button
+          MaterialButton(
+            onPressed: () {
+              // delete from db
+              context.read<FoodDatabase>().deleteFood(food.id);
+
+              // pop box
+              Navigator.pop(context);
+            },
+            child: const Text('Delete'),
+          ),
+
+          // cancel button
+          MaterialButton(
+            onPressed: () {
+              // pop box
+              Navigator.pop(context);
+            },
+            child: const Text('Cancel'),
+          ),
+        ],
+      )
+    );
   }
 
   @override
