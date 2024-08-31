@@ -5,6 +5,7 @@ import 'package:fitness_app/components/square_tile.dart';
 import 'package:fitness_app/models/weather_model.dart';
 import 'package:fitness_app/pages/training_page.dart';
 import 'package:fitness_app/services/weather_service.dart';
+import 'package:fitness_app/util/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -22,6 +23,7 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   // text controller for calories
   final _caloriesController = TextEditingController();
+  String _calories = '';
 
   // pedometer
   late Stream<StepCount> _stepCountStream;
@@ -88,8 +90,12 @@ class _MainPageState extends State<MainPage> {
   }
 
   void _updateText() {
-    print("Text updated: ${_caloriesController.text}");
-    setState(() {});
+    // print("Text updated: ${_caloriesController.text}");
+    setState(() {
+      if (_caloriesController.text.isNotEmpty) {
+        _calories = _caloriesController.text;
+      }
+    });
   }
 
   @override
@@ -218,27 +224,56 @@ class _MainPageState extends State<MainPage> {
                       ],
                     ),
 
-                    // Row(
-                    //   children: [
-                    //     MyTextField(
-                    //       controller: _caloriesController,
-                    //       hintText: 'Calories to burn per day',
-                    //       obscureText: false
-                    //     ),
+                    const SizedBox(height: 25),
 
-                    //     const SizedBox(width: 15),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 20.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center, // Center the row contents
+                        children: [
+                          Expanded(
+                            child: MyTextField(
+                              controller: _caloriesController,
+                              hintText: 'Enter daily goal',
+                              obscureText: false,
+                            ),
+                          ),
+                          CustomButton(
+                            color: Theme.of(context).colorScheme.tertiary,
+                            textColor: Theme.of(context).colorScheme.outline,
+                            onPressed: () {
+                              setState(() {
+                                _calories = _caloriesController.text;
+                                _caloriesController.clear(); // Clear the text field
+                              });
+                            },
+                            label: 'Confirm',
+                          ),
+                        ],
+                      ),
+                    ),
 
-                    //     Text(
-                    //       _caloriesController.text.isNotEmpty
-                    //           ? _caloriesController.text
-                    //           : "No goal set",
-                    //       style: GoogleFonts.dmSerifText(
-                    //         fontSize: 24,
-                    //         color: Theme.of(context).colorScheme.inversePrimary,
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
+                    const SizedBox(height: 15),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Calories to burn today: ',
+                          style: GoogleFonts.dmSerifText(
+                            fontSize: 24,
+                            color: Theme.of(context).colorScheme.inversePrimary,
+                          ),
+                        ),
+                        Text(
+                          _calories == '' ? 'No goal set' : _calories,
+                          style: GoogleFonts.dmSerifText(
+                            fontSize: 24,
+                            color: Theme.of(context).colorScheme.inversePrimary,
+                          ),
+                        ),
+                      ],
+                    ),
 
                     SizedBox(height: 20),
 

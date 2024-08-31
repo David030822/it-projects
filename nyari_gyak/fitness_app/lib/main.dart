@@ -6,6 +6,7 @@ import 'package:fitness_app/pages/login_page.dart';
 import 'package:fitness_app/pages/notification_page.dart';
 import 'package:fitness_app/pages/training_page.dart';
 import 'package:fitness_app/responsive/desktop_scaffold.dart';
+// ignore: unused_import
 import 'package:fitness_app/responsive/mobile_scaffold.dart';
 import 'package:fitness_app/responsive/responsive_layout.dart';
 import 'package:fitness_app/responsive/tablet_scaffold.dart';

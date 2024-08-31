@@ -1,5 +1,6 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables
 
+import 'package:fitness_app/pages/home_page.dart';
 import 'package:fitness_app/util/custom_button.dart';
 import 'package:fitness_app/util/my_dropdown_button.dart';
 import 'package:flutter/material.dart';
@@ -192,6 +193,14 @@ class _TrainingPageState extends State<TrainingPage> {
 
                                       // pop box
                                       Navigator.pop(context);
+
+                                      // go back to home page
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => HomePage(),
+                                        ),
+                                      );
                                     },
                                     child: const Text('Yes'),
                                   ),

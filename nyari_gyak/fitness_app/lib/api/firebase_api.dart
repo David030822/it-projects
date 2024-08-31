@@ -1,7 +1,5 @@
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:fitness_app/main.dart';
-import 'package:fitness_app/pages/training_page.dart';
-import 'package:flutter/material.dart';
 
 class FirebaseApi {
   // create an instance of Firebase Messaging
@@ -13,10 +11,11 @@ class FirebaseApi {
     await _firebaseMessaging.requestPermission();
 
     // fetch the FCM token for this device
+    // ignore: unused_local_variable
     final fCMToken = await _firebaseMessaging.getToken();
 
     // print the token (normally you would send this to your server)
-    print('Token: $fCMToken');
+    // print('Token: $fCMToken');
 
     // initialize further settings for push noti
     initPushNotifications();

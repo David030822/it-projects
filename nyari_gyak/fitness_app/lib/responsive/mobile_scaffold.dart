@@ -1,6 +1,5 @@
 // ignore_for_file: prefer_const_constructors
 
-import 'package:fitness_app/components/my_drawer.dart';
 import 'package:fitness_app/responsive/constants.dart';
 import 'package:fitness_app/util/my_box.dart';
 import 'package:fitness_app/util/my_tile.dart';
