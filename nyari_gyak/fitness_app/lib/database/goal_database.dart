@@ -15,12 +15,28 @@ class GoalDatabase extends ChangeNotifier {
 
   // I N I T I A L I Z E - D A T A B A S E
   static Future<void> initialize() async {
+  try {
+    // Check if the database is already initialized to avoid re-initialization
+    if (Isar.instanceNames.contains('GoalDatabase')) {
+      return;
+    }
+
+    // Obtain the application documents directory
     final dir = await getApplicationDocumentsDirectory();
+
+    // Open the Isar database with the provided schemas
     isar = await Isar.open(
       [GoalSchema, AppSettingsSchema],
       directory: dir.path,
+      name: 'GoalDatabase'
     );
+  } catch (e) {
+    // Handle any errors during initialization
+    debugPrint('Failed to initialize the database: $e');
+    rethrow;
   }
+}
+
 
   // save first date of app startup (for heatmap)
   Future<void> saveFirstLaunchDate() async {

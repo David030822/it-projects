@@ -15,12 +15,28 @@ class FoodDatabase extends ChangeNotifier {
 
   // I N I T I A L I Z E - D A T A B A S E
   static Future<void> initialize() async {
+  try {
+    // Check if the database is already initialized to avoid re-initialization
+    if (Isar.instanceNames.contains('FoodDatabase')) {
+      return;
+    }
+
+    // Obtain the application documents directory
     final dir = await getApplicationDocumentsDirectory();
+
+    // Open the Isar database with the provided schemas
     isar = await Isar.open(
       [FoodSchema, AppSettingsSchema],
       directory: dir.path,
+      name: 'FoodDatabase'
     );
+  } catch (e) {
+    // Handle any errors during initialization
+    debugPrint('Failed to initialize the database: $e');
+    rethrow;
   }
+}
+
 
   /*
 

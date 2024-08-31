@@ -28,7 +28,7 @@ Future main() async {
   // initialize databases
   await GoalDatabase.initialize();
   await GoalDatabase().saveFirstLaunchDate();
-  // await FoodDatabase.initialize();
+  await FoodDatabase.initialize();
 
   FlutterNativeSplash.removeAfter(initialization);
 

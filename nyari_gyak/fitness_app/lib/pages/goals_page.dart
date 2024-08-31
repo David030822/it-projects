@@ -223,7 +223,7 @@ class _GoalsPageState extends State<GoalsPage> {
       );
   }
 
-  // build habit list
+  // build goal list
   Widget _buildGoalList() {
     // goal db
     final goalDatabase = context.watch<GoalDatabase>();
