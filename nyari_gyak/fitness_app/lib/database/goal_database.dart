@@ -37,7 +37,6 @@ class GoalDatabase extends ChangeNotifier {
   }
 }
 
-
   // save first date of app startup (for heatmap)
   Future<void> saveFirstLaunchDate() async {
     final existingSettings = await isar.appSettings.where().findFirst();

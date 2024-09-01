@@ -1,4 +1,5 @@
 import 'package:fitness_app/components/my_drawer.dart';
+import 'package:fitness_app/models/friend.dart';
 import 'package:fitness_app/models/workout.dart';
 import 'package:flutter/material.dart';
 
@@ -50,4 +51,32 @@ List<Workout> workouts = [
 
 List<Workout> getWorkoutList() {
   return workouts;
+}
+
+List<Friend> friends = [
+  Friend(
+    name: 'Mitch',
+    email: 'mitchkoko22@gmail.com'
+  ),
+  Friend(
+    name: 'Sarah',
+    email: 'sarahjones98@yahoo.com'
+  ),
+  Friend(
+    name: 'David',
+    email: 'davidbrown23@hotmail.com'
+  ),
+  Friend(
+    name: 'Emily',
+    email: 'emilysmith11@gmail.com'
+  ),
+  Friend(
+    name: 'Alex',
+    email: 'alexjohnson77@outlook.com'
+  ),
+];
+
+
+List<Friend> getFriendList() {
+  return friends;
 }
