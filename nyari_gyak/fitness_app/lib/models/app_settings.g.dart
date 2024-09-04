@@ -17,10 +17,25 @@ const AppSettingsSchema = CollectionSchema(
   name: r'AppSettings',
   id: -5633561779022347008,
   properties: {
-    r'firstLaunchDate': PropertySchema(
+    r'dailyBurnGoal': PropertySchema(
       id: 0,
+      name: r'dailyBurnGoal',
+      type: IsarType.double,
+    ),
+    r'dailyIntakeGoal': PropertySchema(
+      id: 1,
+      name: r'dailyIntakeGoal',
+      type: IsarType.double,
+    ),
+    r'firstLaunchDate': PropertySchema(
+      id: 2,
       name: r'firstLaunchDate',
       type: IsarType.dateTime,
+    ),
+    r'totalIntake': PropertySchema(
+      id: 3,
+      name: r'totalIntake',
+      type: IsarType.double,
     )
   },
   estimateSize: _appSettingsEstimateSize,
@@ -52,7 +67,10 @@ void _appSettingsSerialize(
   List<int> offsets,
   Map<Type, List<int>> allOffsets,
 ) {
-  writer.writeDateTime(offsets[0], object.firstLaunchDate);
+  writer.writeDouble(offsets[0], object.dailyBurnGoal);
+  writer.writeDouble(offsets[1], object.dailyIntakeGoal);
+  writer.writeDateTime(offsets[2], object.firstLaunchDate);
+  writer.writeDouble(offsets[3], object.totalIntake);
 }
 
 AppSettings _appSettingsDeserialize(
@@ -62,8 +80,11 @@ AppSettings _appSettingsDeserialize(
   Map<Type, List<int>> allOffsets,
 ) {
   final object = AppSettings();
-  object.firstLaunchDate = reader.readDateTimeOrNull(offsets[0]);
+  object.dailyBurnGoal = reader.readDouble(offsets[0]);
+  object.dailyIntakeGoal = reader.readDouble(offsets[1]);
+  object.firstLaunchDate = reader.readDateTimeOrNull(offsets[2]);
   object.id = id;
+  object.totalIntake = reader.readDouble(offsets[3]);
   return object;
 }
 
@@ -75,7 +96,13 @@ P _appSettingsDeserializeProp<P>(
 ) {
   switch (propertyId) {
     case 0:
+      return (reader.readDouble(offset)) as P;
+    case 1:
+      return (reader.readDouble(offset)) as P;
+    case 2:
       return (reader.readDateTimeOrNull(offset)) as P;
+    case 3:
+      return (reader.readDouble(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
   }
@@ -174,6 +201,138 @@ extension AppSettingsQueryWhere
 
 extension AppSettingsQueryFilter
     on QueryBuilder<AppSettings, AppSettings, QFilterCondition> {
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      dailyBurnGoalEqualTo(
+    double value, {
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'dailyBurnGoal',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      dailyBurnGoalGreaterThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'dailyBurnGoal',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      dailyBurnGoalLessThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'dailyBurnGoal',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      dailyBurnGoalBetween(
+    double lower,
+    double upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'dailyBurnGoal',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      dailyIntakeGoalEqualTo(
+    double value, {
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'dailyIntakeGoal',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      dailyIntakeGoalGreaterThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'dailyIntakeGoal',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      dailyIntakeGoalLessThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'dailyIntakeGoal',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      dailyIntakeGoalBetween(
+    double lower,
+    double upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'dailyIntakeGoal',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
   QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
       firstLaunchDateIsNull() {
     return QueryBuilder.apply(this, (query) {
@@ -300,6 +459,72 @@ extension AppSettingsQueryFilter
       ));
     });
   }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      totalIntakeEqualTo(
+    double value, {
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'totalIntake',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      totalIntakeGreaterThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'totalIntake',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      totalIntakeLessThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'totalIntake',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      totalIntakeBetween(
+    double lower,
+    double upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'totalIntake',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        epsilon: epsilon,
+      ));
+    });
+  }
 }
 
 extension AppSettingsQueryObject
@@ -310,6 +535,32 @@ extension AppSettingsQueryLinks
 
 extension AppSettingsQuerySortBy
     on QueryBuilder<AppSettings, AppSettings, QSortBy> {
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> sortByDailyBurnGoal() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dailyBurnGoal', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy>
+      sortByDailyBurnGoalDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dailyBurnGoal', Sort.desc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> sortByDailyIntakeGoal() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dailyIntakeGoal', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy>
+      sortByDailyIntakeGoalDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dailyIntakeGoal', Sort.desc);
+    });
+  }
+
   QueryBuilder<AppSettings, AppSettings, QAfterSortBy> sortByFirstLaunchDate() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'firstLaunchDate', Sort.asc);
@@ -322,10 +573,48 @@ extension AppSettingsQuerySortBy
       return query.addSortBy(r'firstLaunchDate', Sort.desc);
     });
   }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> sortByTotalIntake() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'totalIntake', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> sortByTotalIntakeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'totalIntake', Sort.desc);
+    });
+  }
 }
 
 extension AppSettingsQuerySortThenBy
     on QueryBuilder<AppSettings, AppSettings, QSortThenBy> {
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> thenByDailyBurnGoal() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dailyBurnGoal', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy>
+      thenByDailyBurnGoalDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dailyBurnGoal', Sort.desc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> thenByDailyIntakeGoal() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dailyIntakeGoal', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy>
+      thenByDailyIntakeGoalDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'dailyIntakeGoal', Sort.desc);
+    });
+  }
+
   QueryBuilder<AppSettings, AppSettings, QAfterSortBy> thenByFirstLaunchDate() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'firstLaunchDate', Sort.asc);
@@ -350,14 +639,45 @@ extension AppSettingsQuerySortThenBy
       return query.addSortBy(r'id', Sort.desc);
     });
   }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> thenByTotalIntake() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'totalIntake', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> thenByTotalIntakeDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'totalIntake', Sort.desc);
+    });
+  }
 }
 
 extension AppSettingsQueryWhereDistinct
     on QueryBuilder<AppSettings, AppSettings, QDistinct> {
+  QueryBuilder<AppSettings, AppSettings, QDistinct> distinctByDailyBurnGoal() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'dailyBurnGoal');
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QDistinct>
+      distinctByDailyIntakeGoal() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'dailyIntakeGoal');
+    });
+  }
+
   QueryBuilder<AppSettings, AppSettings, QDistinct>
       distinctByFirstLaunchDate() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'firstLaunchDate');
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QDistinct> distinctByTotalIntake() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'totalIntake');
     });
   }
 }
@@ -370,10 +690,29 @@ extension AppSettingsQueryProperty
     });
   }
 
+  QueryBuilder<AppSettings, double, QQueryOperations> dailyBurnGoalProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'dailyBurnGoal');
+    });
+  }
+
+  QueryBuilder<AppSettings, double, QQueryOperations>
+      dailyIntakeGoalProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'dailyIntakeGoal');
+    });
+  }
+
   QueryBuilder<AppSettings, DateTime?, QQueryOperations>
       firstLaunchDateProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'firstLaunchDate');
+    });
+  }
+
+  QueryBuilder<AppSettings, double, QQueryOperations> totalIntakeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'totalIntake');
     });
   }
 }

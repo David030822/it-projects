@@ -1,7 +1,8 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_declarations
 
 import 'package:fitness_app/components/my_text_field.dart';
 import 'package:fitness_app/components/square_tile.dart';
+import 'package:fitness_app/database/food_database.dart';
 import 'package:fitness_app/models/weather_model.dart';
 import 'package:fitness_app/pages/training_page.dart';
 import 'package:fitness_app/services/weather_service.dart';
@@ -12,6 +13,7 @@ import 'package:lottie/lottie.dart';
 import 'dart:async';
 import 'package:pedometer/pedometer.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -83,19 +85,11 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     initPlatformState();
 
-    _caloriesController.addListener(_updateText);
+    final foodDatabase = Provider.of<FoodDatabase>(context, listen: false);
+    foodDatabase.fetchAppSettings();
 
     // fetch weather on startup
     _fetchWeather();
-  }
-
-  void _updateText() {
-    // print("Text updated: ${_caloriesController.text}");
-    setState(() {
-      if (_caloriesController.text.isNotEmpty) {
-        _calories = _caloriesController.text;
-      }
-    });
   }
 
   @override
@@ -244,6 +238,11 @@ class _MainPageState extends State<MainPage> {
                             onPressed: () {
                               setState(() {
                                 _calories = _caloriesController.text;
+                                final double newGoal = double.tryParse(_calories) ?? 0.0;
+
+                                // Save the new goal to the database
+                                Provider.of<FoodDatabase>(context, listen: false).updateCaloriesToBurnGoal(newGoal);
+
                                 _caloriesController.clear(); // Clear the text field
                               });
                             },
@@ -265,17 +264,49 @@ class _MainPageState extends State<MainPage> {
                             color: Theme.of(context).colorScheme.inversePrimary,
                           ),
                         ),
-                        Text(
-                          _calories == '' ? 'No goal set' : _calories,
-                          style: GoogleFonts.dmSerifText(
-                            fontSize: 24,
-                            color: Theme.of(context).colorScheme.inversePrimary,
-                          ),
+                        Consumer<FoodDatabase>(
+                          builder: (context, foodDatabase, child) {
+                            final caloriesToBurnGoal = foodDatabase.appSettings.dailyBurnGoal;
+                            return Text(
+                              caloriesToBurnGoal == 0.0 ? 'No goal set' : caloriesToBurnGoal.toString(),
+                              style: GoogleFonts.dmSerifText(
+                                fontSize: 24,
+                                color: Theme.of(context).colorScheme.inversePrimary,
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
 
                     SizedBox(height: 20),
+
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Calories burnt until now: ',
+                          style: GoogleFonts.dmSerifText(
+                            fontSize: 24,
+                            color: Theme.of(context).colorScheme.inversePrimary,
+                          ),
+                        ),
+                        Consumer<FoodDatabase>(
+                          builder: (context, foodDatabase, child) {
+                            final caloriesBurnt = 0.0;
+                            return Text(
+                              caloriesBurnt == 0.0 ? 'Zero' : caloriesBurnt.toString(),
+                              style: GoogleFonts.dmSerifText(
+                                fontSize: 24,
+                                color: Theme.of(context).colorScheme.inversePrimary,
+                              ),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+
+                    const SizedBox(height: 20),
 
                     Column(
                       mainAxisAlignment: MainAxisAlignment.center,

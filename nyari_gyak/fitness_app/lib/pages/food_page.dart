@@ -21,23 +21,13 @@ class _FoodPageState extends State<FoodPage> {
 
   // calories controller
   final _caloriesController = TextEditingController();
-  String _calories = '';
-
-  String _totalIntake = '';
 
   @override
   void initState() {
-    // read existing foods on app startup
-    Provider.of<FoodDatabase>(context, listen: false).readFoods();
-
-    // Listen for changes to the text field
-    _caloriesController.addListener(() {
-      setState(() {
-        if (_caloriesController.text.isNotEmpty){
-          _calories = _caloriesController.text;
-        }
-      });
-    });
+    // Fetch app settings and foods on startup
+    final foodDatabase = Provider.of<FoodDatabase>(context, listen: false);
+    foodDatabase.fetchAppSettings();
+    foodDatabase.readFoods();
 
     super.initState();
   }
@@ -107,6 +97,15 @@ class _FoodPageState extends State<FoodPage> {
         ],
       ),
     );
+  }
+
+  // Set the daily goal
+  void setDailyGoal() {
+    final goal = double.tryParse(_caloriesController.text);
+    if (goal != null) {
+      context.read<FoodDatabase>().updateDailyGoal(goal);
+    }
+    _caloriesController.clear();
   }
 
   // edit food box
@@ -200,6 +199,7 @@ class _FoodPageState extends State<FoodPage> {
 
   @override
   Widget build(BuildContext context) {
+    final foodDatabase = context.watch<FoodDatabase>();
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       floatingActionButton: FloatingActionButton(
@@ -221,13 +221,11 @@ class _FoodPageState extends State<FoodPage> {
                     color: Theme.of(context).colorScheme.inversePrimary,
                   ),
                 ),
-          
                 const SizedBox(height: 25),
-          
                 Padding(
                   padding: const EdgeInsets.only(right: 20.0),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center, // Center the row contents
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Expanded(
                         child: MyTextField(
@@ -239,20 +237,13 @@ class _FoodPageState extends State<FoodPage> {
                       CustomButton(
                         color: Theme.of(context).colorScheme.tertiary,
                         textColor: Theme.of(context).colorScheme.outline,
-                        onPressed: () {
-                          setState(() {
-                            _calories = _caloriesController.text;
-                            _caloriesController.clear(); // Clear the text field
-                          });
-                        },
+                        onPressed: setDailyGoal,
                         label: 'Confirm',
                       ),
                     ],
                   ),
                 ),
-          
                 const SizedBox(height: 20),
-          
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -264,7 +255,9 @@ class _FoodPageState extends State<FoodPage> {
                       ),
                     ),
                     Text(
-                      _calories == '' ? 'No goal set' : _calories,
+                      foodDatabase.appSettings.dailyIntakeGoal == 0 
+                        ? 'No goal set' 
+                        : foodDatabase.appSettings.dailyIntakeGoal.toString(),
                       style: GoogleFonts.dmSerifText(
                         fontSize: 24,
                         color: Theme.of(context).colorScheme.inversePrimary,
@@ -272,9 +265,7 @@ class _FoodPageState extends State<FoodPage> {
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 15),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -286,7 +277,7 @@ class _FoodPageState extends State<FoodPage> {
                       ),
                     ),
                     Text(
-                      _totalIntake == '' ? 'Nothing yet' : _totalIntake,
+                      foodDatabase.appSettings.totalIntake.toString(),
                       style: GoogleFonts.dmSerifText(
                         fontSize: 24,
                         color: Theme.of(context).colorScheme.inversePrimary,
@@ -294,9 +285,7 @@ class _FoodPageState extends State<FoodPage> {
                     ),
                   ],
                 ),
-
                 const SizedBox(height: 15),
-
                 Text(
                   'My meals today:',
                   style: GoogleFonts.dmSerifText(
@@ -307,8 +296,6 @@ class _FoodPageState extends State<FoodPage> {
               ],
             ),
           ),
-
-          // food list
           _buildFoodList(),
         ],
       ),

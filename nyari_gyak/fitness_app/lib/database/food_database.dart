@@ -7,36 +7,69 @@ import 'package:path_provider/path_provider.dart';
 class FoodDatabase extends ChangeNotifier {
   static late Isar isar;
 
-  /*
+  late AppSettings appSettings;
 
-  S E T U P
+  // List of foods
+  final List<Food> currentFoods = [];
 
-  */
-
-  // I N I T I A L I Z E - D A T A B A S E
   static Future<void> initialize() async {
-  try {
-    // Check if the database is already initialized to avoid re-initialization
-    if (Isar.instanceNames.contains('FoodDatabase')) {
-      return;
+    try {
+      if (Isar.instanceNames.contains('FoodDatabase')) {
+        return;
+      }
+
+      final dir = await getApplicationDocumentsDirectory();
+      isar = await Isar.open(
+        [FoodSchema, AppSettingsSchema],
+        directory: dir.path,
+        name: 'FoodDatabase',
+      );
+
+      // Fetch or initialize app settings
+      final existingSettings = await isar.appSettings.get(0);
+      if (existingSettings == null) {
+        await isar.writeTxn(() async {
+          await isar.appSettings.put(AppSettings());
+        });
+      }
+    } catch (e) {
+      debugPrint('Failed to initialize the database: $e');
+      rethrow;
     }
-
-    // Obtain the application documents directory
-    final dir = await getApplicationDocumentsDirectory();
-
-    // Open the Isar database with the provided schemas
-    isar = await Isar.open(
-      [FoodSchema, AppSettingsSchema],
-      directory: dir.path,
-      name: 'FoodDatabase'
-    );
-  } catch (e) {
-    // Handle any errors during initialization
-    debugPrint('Failed to initialize the database: $e');
-    rethrow;
   }
-}
 
+  // Fetch the app settings from the database
+  Future<void> fetchAppSettings() async {
+    appSettings = await isar.appSettings.get(0) ?? AppSettings();
+    notifyListeners();
+  }
+
+  Future<void> updateCaloriesToBurnGoal(double newGoal) async {
+    appSettings.dailyBurnGoal = newGoal;
+    await isar.writeTxn(() async {
+      await isar.appSettings.put(appSettings);
+    });
+    notifyListeners();
+  }
+
+
+  // Update the daily goal
+  Future<void> updateDailyGoal(double newGoal) async {
+    appSettings.dailyIntakeGoal = newGoal;
+    await isar.writeTxn(() async {
+      await isar.appSettings.put(appSettings);
+    });
+    notifyListeners();
+  }
+
+  // Update the total intake
+  Future<void> updateTotalIntake() async {
+    appSettings.totalIntake = currentFoods.fold(0, (sum, food) => sum + food.calories);
+    await isar.writeTxn(() async {
+      await isar.appSettings.put(appSettings);
+    });
+    notifyListeners();
+  }
 
   /*
 
@@ -44,64 +77,39 @@ class FoodDatabase extends ChangeNotifier {
 
   */
 
-  // list of goals
-  final List<Food> currentFoods = [];
-
-  // C R E A T E - add new meal
+  // Add new food
   Future<void> addFood(String foodName, double calories) async {
-    // create new food
-    final newFood = Food(
-      foodName, calories
-    );
-
-    // save to db
+    final newFood = Food(foodName, calories);
     await isar.writeTxn(() => isar.foods.put(newFood));
-
-    // re-read from db
-    readFoods();
+    await readFoods();
   }
 
-  // R E A D - read saved foods from db
+  // Read foods from the database
   Future<void> readFoods() async {
-    // fetch all foods from db
-    List<Food> fetchedFoods = await isar.foods.where().findAll();
-
-    // give to current foods
     currentFoods.clear();
-    currentFoods.addAll(fetchedFoods);
-
-    // update UI
+    currentFoods.addAll(await isar.foods.where().findAll());
+    await updateTotalIntake(); // Update total intake whenever foods are read
     notifyListeners();
   }
 
-  // U P D A T E - edit food name & calories
+  // Update existing food
   Future<void> updateFood(int id, String newName, double newCalories) async {
-    // find the specific food
     final food = await isar.foods.get(id);
-
-    // update food name & calories
-    if(food != null) {
-      // update name & calories
+    if (food != null) {
       await isar.writeTxn(() async {
         food.name = newName;
         food.calories = newCalories;
-        // save updated goal back to the db
         await isar.foods.put(food);
       });
     }
-
-    // re-read from db
-    readFoods();
+    await readFoods();
   }
 
-  // D E L E T E - delete food
+  // Delete food
   Future<void> deleteFood(int id) async {
-    // perform the delete
     await isar.writeTxn(() async {
       await isar.foods.delete(id);
     });
-
-    // re-read from db
-    readFoods();
+    await readFoods();
   }
 }
