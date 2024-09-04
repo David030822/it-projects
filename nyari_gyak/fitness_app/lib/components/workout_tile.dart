@@ -5,7 +5,7 @@ import 'package:fitness_app/models/workout.dart';
 class WorkoutTile extends StatelessWidget {
   final Workout workout;
 
-  const WorkoutTile({required this.workout});
+  const WorkoutTile({super.key, required this.workout});
 
   @override
   Widget build(BuildContext context) {

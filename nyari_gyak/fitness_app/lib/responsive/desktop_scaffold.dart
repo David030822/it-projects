@@ -33,9 +33,9 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
                       width: double.infinity,
                       child: GridView.builder(
                         itemCount: 4,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 4),
                         itemBuilder: (context, index) {
-                          return MyBox();
+                          return const MyBox();
                         }
                       ),
                     ),
@@ -46,7 +46,7 @@ class _DesktopScaffoldState extends State<DesktopScaffold> {
                   child: ListView.builder(
                     itemCount: 5,
                     itemBuilder: (context, index) {
-                      return MyTile();
+                      return const MyTile();
                     },
                   ),
                 ),

@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use, prefer_const_constructors
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:fitness_app/api/firebase_api.dart';
 import 'package:fitness_app/database/food_database.dart';
