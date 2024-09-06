@@ -16,36 +16,12 @@ class ApiClient {
   // API nevek
   final String _splashPath = '/splash.php';
   final String _loginPath = '/login.php';
-  final String _scalesPath = '/scales.php';
-  final String _updatePasswordPath = '/change_password.php';
-  final String _ingredientsPath = '/ingredients.php';
-  final String _editIngredientPath = '/edit_ingredient.php';
-  final String _restaurantsPath = '/restaurants.php';
-  final String _setRestaurantPath = '/set_restaurant.php';
-  final String _createIngredientPath = '/create_ingredient.php';
-  final String _setScaleIngredientPath = '/set_scale_ingredient.php';
-  final String _setScaleLevelPath = '/set_scale_level.php';
-  final String _getShoppingListPath = '/get_shoppinglist.php';
-  final String _editShoppingListPath = '/edit_shoppinglist.php';
-  final String _checkShoppingListPath = '/check_shoppinglist.php';
 
 
   // Field names
   final String _udidField = 'udid';
-  final String _uidField = 'uid';
-  final String _scaleIdField = 'scaleid';
-  final String _ingredientIdField = 'ingredientid';
-  final String _restaurantIdField = 'restaurantid';
-  final String _nameField = 'name';
   final String _emailField = 'email';
   final String _passwordField = 'password';
-  final String _oldPasswordField = 'oldpassword';
-  final String _newPasswordField = 'newpassword';
-  final String _iconIdField = 'iconid';
-  final String _newIconField = 'newicon';
-  final String _newNameField = 'newname';
-  final String _dailyLevelField = 'dailylevel';
-  final String _commentField = 'comment';
 
   Future<Map<String, dynamic>> _post(
       {required String path, required Map<String, dynamic> arguments}) async {
