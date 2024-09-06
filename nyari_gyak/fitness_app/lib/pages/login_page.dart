@@ -8,7 +8,9 @@ import 'package:fitness_app/pages/forgot_password_page.dart';
 import 'package:fitness_app/pages/google_page.dart';
 import 'package:fitness_app/pages/home_page.dart';
 import 'package:fitness_app/pages/register_page.dart';
+import 'package:fitness_app/providers/user_data.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -111,9 +113,9 @@ class _LoginPageState extends State<LoginPage> {
                       // sign in button
                       MyButton(
                         text: 'Sign In',
-                        onTap: () {
-                          Navigator.pop(context);
-                          Navigator.push(
+                        onTap: () async {
+                          await context.read<UserData>().login(usernameController.text, passwordController.text, context);
+                          Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
                               builder: (context) => HomePage(),

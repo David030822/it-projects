@@ -5,9 +5,11 @@ import 'package:fitness_app/api/firebase_api.dart';
 import 'package:fitness_app/database/food_database.dart';
 import 'package:fitness_app/database/goal_database.dart';
 import 'package:fitness_app/firebase_options.dart';
+import 'package:fitness_app/network/apiclient.dart';
 import 'package:fitness_app/pages/login_page.dart';
 import 'package:fitness_app/pages/notification_page.dart';
 import 'package:fitness_app/pages/training_page.dart';
+import 'package:fitness_app/providers/user_data.dart';
 import 'package:fitness_app/responsive/desktop_scaffold.dart';
 // ignore: unused_import
 import 'package:fitness_app/responsive/mobile_scaffold.dart';
@@ -17,6 +19,7 @@ import 'package:fitness_app/themes/theme_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 final navigatorKey = GlobalKey<NavigatorState>();
 
@@ -26,6 +29,7 @@ Future main() async {
   // initialize Firebase
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await FirebaseApi().initNotifications();
+  UserData userData = UserData(apiClient: ApiClient(client: http.Client()));
 
   // initialize databases
   await GoalDatabase.initialize();
@@ -39,6 +43,9 @@ Future main() async {
       providers: [
         // Food provider
         ChangeNotifierProvider(create: (context) => FoodDatabase()),
+
+        ChangeNotifierProvider(create: (context) => userData),
+
 
         // Goal provider
         ChangeNotifierProvider(create: (context) => GoalDatabase()),

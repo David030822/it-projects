@@ -1,6 +1,6 @@
 # fitness_app
 
-A new Flutter project.
+Fitness Application for anyone who wants to keep track of their workouts and meals, to live a healthier life.
 
 ## Getting Started
 
