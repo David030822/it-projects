@@ -15,20 +15,18 @@ class FoodPage extends StatefulWidget {
 }
 
 class _FoodPageState extends State<FoodPage> {
-  // food name & calories controllers
   final _foodNameController = TextEditingController();
   final _foodCaloriesController = TextEditingController();
-
-  // calories controller
   final _caloriesController = TextEditingController();
+
+  Future<void> _fetchData() async {
+    await context.read<FoodDatabase>().fetchAppSettings();
+    await context.read<FoodDatabase>().readFoods();
+  }
 
   @override
   void initState() {
-    // Fetch app settings and foods on startup
-    final foodDatabase = Provider.of<FoodDatabase>(context, listen: false);
-    foodDatabase.fetchAppSettings();
-    foodDatabase.readFoods();
-
+    _fetchData();
     super.initState();
   }
 
@@ -101,11 +99,13 @@ class _FoodPageState extends State<FoodPage> {
 
   // Set the daily goal
   void setDailyGoal() {
-    final goal = double.tryParse(_caloriesController.text);
+    setState(() {
+      final goal = double.tryParse(_caloriesController.text);
     if (goal != null) {
       context.read<FoodDatabase>().updateDailyGoal(goal);
     }
     _caloriesController.clear();
+    });
   }
 
   // edit food box
@@ -199,7 +199,12 @@ class _FoodPageState extends State<FoodPage> {
 
   @override
   Widget build(BuildContext context) {
+    return _buildPageContent(context);
+  }
+
+  Widget _buildPageContent(BuildContext context) {
     final foodDatabase = context.watch<FoodDatabase>();
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
       floatingActionButton: FloatingActionButton(
@@ -302,30 +307,25 @@ class _FoodPageState extends State<FoodPage> {
     );
   }
 
-  // build food list
   Widget _buildFoodList() {
-    // food db
     final foodDatabase = context.watch<FoodDatabase>();
+    final currentFoods = foodDatabase.currentFoods;
 
-    // current foods
-    List<Food> currentFoods = foodDatabase.currentFoods;
-
-    // return list of foods UI
     return ListView.builder(
       itemCount: currentFoods.length,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       itemBuilder: (context, index) {
-        // get each individual food
         final food = currentFoods[index];
 
-        // return goal tile UI
         return FoodTile(
           food: food,
           editFood: (context) => editFoodBox(food),
           deleteFood: (context) => deleteFoodBox(food),
         );
-      } 
+      }
     );
   }
+
+  // Your other methods like createNewFood, setDailyGoal, editFoodBox, deleteFoodBox...
 }

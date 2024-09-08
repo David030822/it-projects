@@ -14,6 +14,7 @@ class FoodDatabase extends ChangeNotifier {
 
   static Future<void> initialize() async {
     try {
+      // Prevent reinitialization if already done
       if (Isar.instanceNames.contains('FoodDatabase')) {
         return;
       }
@@ -29,7 +30,8 @@ class FoodDatabase extends ChangeNotifier {
       final existingSettings = await isar.appSettings.get(0);
       if (existingSettings == null) {
         await isar.writeTxn(() async {
-          await isar.appSettings.put(AppSettings());
+          // Explicitly set id = 0
+          await isar.appSettings.put(AppSettings()..id = 0);
         });
       }
     } catch (e) {
@@ -40,6 +42,8 @@ class FoodDatabase extends ChangeNotifier {
 
   // Fetch the app settings from the database
   Future<void> fetchAppSettings() async {
+    // Ensure the database is initialized first
+    await initialize();
     appSettings = await isar.appSettings.get(0) ?? AppSettings();
     notifyListeners();
   }
