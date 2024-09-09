@@ -37,7 +37,6 @@ class GooglePage extends StatelessWidget {
               // email
               MyTextField(
                 controller: emailController,
-                // focusNode: myFocusNode,
                 hintText: 'Enter your email',
                 obscureText: false
               ),

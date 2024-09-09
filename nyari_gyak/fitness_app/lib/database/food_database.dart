@@ -1,5 +1,6 @@
 import 'package:fitness_app/models/app_settings.dart';
 import 'package:fitness_app/models/food.dart';
+import 'package:fitness_app/responsive/constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
@@ -69,6 +70,15 @@ class FoodDatabase extends ChangeNotifier {
   // Update the total intake
   Future<void> updateTotalIntake() async {
     appSettings.totalIntake = currentFoods.fold(0, (sum, food) => sum + food.calories);
+    await isar.writeTxn(() async {
+      await isar.appSettings.put(appSettings);
+    });
+    notifyListeners();
+  }
+
+  // Update the total intake
+  Future<void> updateTotalCaloriesBurnt() async {
+    appSettings.totalBurnt = workouts.fold(0, (sum, workout) => sum + workout.calories);
     await isar.writeTxn(() async {
       await isar.appSettings.put(appSettings);
     });

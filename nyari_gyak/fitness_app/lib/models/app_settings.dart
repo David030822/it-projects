@@ -9,5 +9,6 @@ class AppSettings {
   DateTime? firstLaunchDate;
   double dailyBurnGoal = 0;
   double dailyIntakeGoal = 0;
+  double totalBurnt = 0;
   double totalIntake = 0;
 }

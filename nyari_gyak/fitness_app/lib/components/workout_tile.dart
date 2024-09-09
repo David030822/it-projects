@@ -14,7 +14,7 @@ class WorkoutTile extends StatelessWidget {
       subtitle: Text(
         'Start: ${formatDate(workout.startDate)}\nEnd: ${formatDate(workout.endDate)}',
       ),
-      trailing: Text('${workout.distance} km'),
+      trailing: Text('${workout.distance} km\n${workout.calories} kCal'),
     );
   }
 

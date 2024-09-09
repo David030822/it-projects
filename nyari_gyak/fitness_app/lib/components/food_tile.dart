@@ -47,7 +47,7 @@ class FoodTile extends StatelessWidget {
           padding: const EdgeInsets.all(12),
           child: ListTile(
             title: Text(food.name),
-            trailing: Text('${food.calories.toString()} KCal'),
+            trailing: Text('${food.calories.toString()} kCal'),
           ),
         ),
       ),

@@ -32,8 +32,13 @@ const AppSettingsSchema = CollectionSchema(
       name: r'firstLaunchDate',
       type: IsarType.dateTime,
     ),
-    r'totalIntake': PropertySchema(
+    r'totalBurnt': PropertySchema(
       id: 3,
+      name: r'totalBurnt',
+      type: IsarType.double,
+    ),
+    r'totalIntake': PropertySchema(
+      id: 4,
       name: r'totalIntake',
       type: IsarType.double,
     )
@@ -70,7 +75,8 @@ void _appSettingsSerialize(
   writer.writeDouble(offsets[0], object.dailyBurnGoal);
   writer.writeDouble(offsets[1], object.dailyIntakeGoal);
   writer.writeDateTime(offsets[2], object.firstLaunchDate);
-  writer.writeDouble(offsets[3], object.totalIntake);
+  writer.writeDouble(offsets[3], object.totalBurnt);
+  writer.writeDouble(offsets[4], object.totalIntake);
 }
 
 AppSettings _appSettingsDeserialize(
@@ -84,7 +90,8 @@ AppSettings _appSettingsDeserialize(
   object.dailyIntakeGoal = reader.readDouble(offsets[1]);
   object.firstLaunchDate = reader.readDateTimeOrNull(offsets[2]);
   object.id = id;
-  object.totalIntake = reader.readDouble(offsets[3]);
+  object.totalBurnt = reader.readDouble(offsets[3]);
+  object.totalIntake = reader.readDouble(offsets[4]);
   return object;
 }
 
@@ -102,6 +109,8 @@ P _appSettingsDeserializeProp<P>(
     case 2:
       return (reader.readDateTimeOrNull(offset)) as P;
     case 3:
+      return (reader.readDouble(offset)) as P;
+    case 4:
       return (reader.readDouble(offset)) as P;
     default:
       throw IsarError('Unknown property with id $propertyId');
@@ -461,6 +470,72 @@ extension AppSettingsQueryFilter
   }
 
   QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      totalBurntEqualTo(
+    double value, {
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.equalTo(
+        property: r'totalBurnt',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      totalBurntGreaterThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.greaterThan(
+        include: include,
+        property: r'totalBurnt',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      totalBurntLessThan(
+    double value, {
+    bool include = false,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.lessThan(
+        include: include,
+        property: r'totalBurnt',
+        value: value,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
+      totalBurntBetween(
+    double lower,
+    double upper, {
+    bool includeLower = true,
+    bool includeUpper = true,
+    double epsilon = Query.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(FilterCondition.between(
+        property: r'totalBurnt',
+        lower: lower,
+        includeLower: includeLower,
+        upper: upper,
+        includeUpper: includeUpper,
+        epsilon: epsilon,
+      ));
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterFilterCondition>
       totalIntakeEqualTo(
     double value, {
     double epsilon = Query.epsilon,
@@ -574,6 +649,18 @@ extension AppSettingsQuerySortBy
     });
   }
 
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> sortByTotalBurnt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'totalBurnt', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> sortByTotalBurntDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'totalBurnt', Sort.desc);
+    });
+  }
+
   QueryBuilder<AppSettings, AppSettings, QAfterSortBy> sortByTotalIntake() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'totalIntake', Sort.asc);
@@ -640,6 +727,18 @@ extension AppSettingsQuerySortThenBy
     });
   }
 
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> thenByTotalBurnt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'totalBurnt', Sort.asc);
+    });
+  }
+
+  QueryBuilder<AppSettings, AppSettings, QAfterSortBy> thenByTotalBurntDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(r'totalBurnt', Sort.desc);
+    });
+  }
+
   QueryBuilder<AppSettings, AppSettings, QAfterSortBy> thenByTotalIntake() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(r'totalIntake', Sort.asc);
@@ -675,6 +774,12 @@ extension AppSettingsQueryWhereDistinct
     });
   }
 
+  QueryBuilder<AppSettings, AppSettings, QDistinct> distinctByTotalBurnt() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(r'totalBurnt');
+    });
+  }
+
   QueryBuilder<AppSettings, AppSettings, QDistinct> distinctByTotalIntake() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(r'totalIntake');
@@ -707,6 +812,12 @@ extension AppSettingsQueryProperty
       firstLaunchDateProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addPropertyName(r'firstLaunchDate');
+    });
+  }
+
+  QueryBuilder<AppSettings, double, QQueryOperations> totalBurntProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addPropertyName(r'totalBurnt');
     });
   }
 

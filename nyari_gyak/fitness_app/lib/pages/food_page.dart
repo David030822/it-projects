@@ -326,6 +326,4 @@ class _FoodPageState extends State<FoodPage> {
       }
     );
   }
-
-  // Your other methods like createNewFood, setDailyGoal, editFoodBox, deleteFoodBox...
 }

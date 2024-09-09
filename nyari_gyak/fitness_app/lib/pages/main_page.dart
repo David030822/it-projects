@@ -87,6 +87,7 @@ class _MainPageState extends State<MainPage> {
 
     final foodDatabase = Provider.of<FoodDatabase>(context, listen: false);
     foodDatabase.fetchAppSettings();
+    foodDatabase.updateTotalCaloriesBurnt();
 
     // fetch weather on startup
     _fetchWeather();
@@ -293,7 +294,7 @@ class _MainPageState extends State<MainPage> {
                         ),
                         Consumer<FoodDatabase>(
                           builder: (context, foodDatabase, child) {
-                            final caloriesBurnt = 0.0;
+                            final caloriesBurnt = foodDatabase.appSettings.totalBurnt;
                             return Text(
                               caloriesBurnt == 0.0 ? 'Zero' : caloriesBurnt.toString(),
                               style: GoogleFonts.dmSerifText(
