@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://b06cg063cle7s"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_q8hrk"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_r48wm"]
+
+[sub_resource type="PrismMesh" id="PrismMesh_u0csm"]
+
+[node name="Meshes" type="Node3D"]
+
+[node name="CubeMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(2.46951, 0.523389, -2.40121, -1.92488, 2.52832, -1.42853, 1.52794, 2.33921, 2.08128, -134.817, 4.31975, 45.4598)
+mesh = SubResource("BoxMesh_q8hrk")
+
+[node name="SphereMesh" type="MeshInstance3D" parent="CubeMesh"]
+transform = Transform3D(10, -2.38419e-07, 4.76837e-07, 2.38419e-07, 10, -2.84217e-14, -4.76837e-07, 3.97904e-14, 10, -11.8041, 15.5046, -8.7603)
+mesh = SubResource("SphereMesh_r48wm")
+
+[node name="PrismMesh" type="MeshInstance3D" parent="."]
+transform = Transform3D(-9.8062, -12.2625, 9.60283, -13.168, 12.5876, 2.62699, -8.31783, -5.47075, -15.4799, -54.0474, 71.5622, 21.633)
+mesh = SubResource("PrismMesh_u0csm")
