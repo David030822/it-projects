@@ -11,6 +11,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0686154, 1.48859, 0.0328197
 axis_lock_linear_z = true
 axis_lock_angular_x = true
 axis_lock_angular_y = true
+contact_monitor = true
+max_contacts_reported = 10
 linear_damp = 1.0
 angular_damp = 3.0
 script = ExtResource("1_kwhm1")
@@ -20,3 +22,5 @@ mesh = SubResource("CylinderMesh_ebs4t")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_klus3")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
