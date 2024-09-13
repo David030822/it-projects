@@ -196,7 +196,7 @@ class _MainPageState extends State<MainPage> {
                             );
                           },
                           child: Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
+                            padding: const EdgeInsets.only(left: 10.0),
                             child: SquareTile(
                               imagePath: 'assets/images/applogo_step_b.png',
                               height: 50,

@@ -35,7 +35,7 @@ class MyBottomNavBar extends StatelessWidget {
           ),
           GButton(
             icon: Icons.emoji_events,
-            text: 'Achievements'
+            text: 'Workouts'
           ),
         ],
       ),
