@@ -56,3 +56,4 @@ transform = Transform3D(0.999091, 0.00886234, -0.041694, 0, 0.978148, 0.207912, 
 
 [node name="Player" parent="." instance=ExtResource("1_ihowa")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1.4, 0)
+thrust = 1500.0

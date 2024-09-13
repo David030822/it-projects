@@ -16,6 +16,8 @@ max_contacts_reported = 10
 linear_damp = 1.0
 angular_damp = 3.0
 script = ExtResource("1_kwhm1")
+thrust = 1500.0
+torque_thrust = 250.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CylinderMesh_ebs4t")
