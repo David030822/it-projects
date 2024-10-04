@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:fitness_app/themes/themes.dart';
+import 'package:flutter/material.dart';
 
 class ThemeProvider with ChangeNotifier {
   // initially theme is light mode
