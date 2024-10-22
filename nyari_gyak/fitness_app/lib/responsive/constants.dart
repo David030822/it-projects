@@ -81,7 +81,6 @@ List<Friend> friends = [
   ),
 ];
 
-
 List<Friend> getFriendList() {
   return friends;
 }
