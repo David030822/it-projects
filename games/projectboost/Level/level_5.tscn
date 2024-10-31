@@ -1,8 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://c1lq8jjjv2kwm"]
+[gd_scene load_steps=11 format=3 uid="uid://bni62h6ayj5vr"]
 
-[ext_resource type="Script" path="res://Level/launch_pad.gd" id="1_q063f"]
-[ext_resource type="Script" path="res://Level/landing_pad.gd" id="2_uyx01"]
-[ext_resource type="PackedScene" uid="uid://cip3otejn8r44" path="res://player.tscn" id="3_cldpi"]
+[ext_resource type="Script" path="res://Level/launch_pad.gd" id="1_gvvdh"]
+[ext_resource type="Script" path="res://Level/landing_pad.gd" id="2_qoh1a"]
+[ext_resource type="PackedScene" uid="uid://cip3otejn8r44" path="res://player.tscn" id="3_5ud5e"]
+[ext_resource type="PackedScene" uid="uid://bukeppsqg2h3o" path="res://moving_hazard.tscn" id="4_owsnu"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ma8m7"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -19,9 +20,6 @@ glow_enabled = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rmkp1"]
 albedo_color = Color(0.62816, 0.475535, 0.325388, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5tttm"]
-albedo_color = Color(0.437816, 0.530028, 0.139478, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5kvry"]
 albedo_color = Color(0.104516, 0.445474, 0.655787, 1)
@@ -44,29 +42,26 @@ use_collision = true
 size = Vector3(30, 8, 5)
 material = SubResource("StandardMaterial3D_rmkp1")
 
-[node name="Obstacle" type="CSGBox3D" parent="." groups=["Hazard"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.585423, 6.12885, 0)
-use_collision = true
-size = Vector3(15, 1, 5)
-material = SubResource("StandardMaterial3D_5tttm")
-
 [node name="LaunchPad" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 0.2, 0)
 use_collision = true
 size = Vector3(2, 0.4, 2)
 material = SubResource("StandardMaterial3D_5kvry")
-script = ExtResource("1_q063f")
+script = ExtResource("1_gvvdh")
 
 [node name="LandingPad" type="CSGBox3D" parent="." groups=["Goal"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.95788, 0.208098, 0.00202441)
 use_collision = true
 size = Vector3(2, 0.4, 2)
 material = SubResource("StandardMaterial3D_dpv24")
-script = ExtResource("2_uyx01")
-file_path = "res://Level/level_5.tscn"
+script = ExtResource("2_qoh1a")
+file_path = "res://Level/level.tscn"
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.999091, 0.00886234, -0.041694, 0, 0.978148, 0.207912, 0.0426255, -0.207723, 0.977259, -1.08871, 4.4, 9.85)
 
-[node name="Player" parent="." instance=ExtResource("3_cldpi")]
+[node name="Player" parent="." instance=ExtResource("3_5ud5e")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1.4, 0)
+
+[node name="MovingHazard" parent="." instance=ExtResource("4_owsnu")]
+destination = Vector3(0, 2, 0)
