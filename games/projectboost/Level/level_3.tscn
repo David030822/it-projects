@@ -1,24 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://c54h7sn7cht7f"]
+[gd_scene load_steps=8 format=3 uid="uid://c54h7sn7cht7f"]
 
 [ext_resource type="Script" path="res://Level/launch_pad.gd" id="1_eaudx"]
 [ext_resource type="Script" path="res://Level/landing_pad.gd" id="2_g3cpu"]
 [ext_resource type="PackedScene" uid="uid://cip3otejn8r44" path="res://player.tscn" id="3_3e6td"]
-
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ma8m7"]
-sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-ground_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
-
-[sub_resource type="Sky" id="Sky_akbc1"]
-sky_material = SubResource("ProceduralSkyMaterial_ma8m7")
-
-[sub_resource type="Environment" id="Environment_6dkqy"]
-background_mode = 2
-sky = SubResource("Sky_akbc1")
-tonemap_mode = 2
-glow_enabled = true
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rmkp1"]
-albedo_color = Color(0.62816, 0.475535, 0.325388, 1)
+[ext_resource type="PackedScene" uid="uid://c11lfemsq43n3" path="res://Background.tscn" id="4_d1bow"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lsgmc"]
 albedo_color = Color(0.139772, 0.699739, 0.753871, 1)
@@ -30,19 +15,6 @@ albedo_color = Color(0.104516, 0.445474, 0.655787, 1)
 albedo_color = Color(0.0336, 0.56, 0.130107, 1)
 
 [node name="Level" type="Node3D"]
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-shadow_enabled = true
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_6dkqy")
-
-[node name="Floor" type="CSGBox3D" parent="." groups=["Hazard"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.756, -4, 0)
-use_collision = true
-size = Vector3(30, 8, 5)
-material = SubResource("StandardMaterial3D_rmkp1")
 
 [node name="Obstacle" type="CSGBox3D" parent="." groups=["Hazard"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.585423, 3.47921, 0)
@@ -66,7 +38,9 @@ script = ExtResource("2_g3cpu")
 file_path = "res://Level/level_4.tscn"
 
 [node name="Camera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.999091, 0.00886234, -0.041694, 0, 0.978148, 0.207912, 0.0426255, -0.207723, 0.977259, -1.08871, 4.4, 9.85)
+transform = Transform3D(0.999091, 0.00886235, -0.041694, 0, 0.978148, 0.207912, 0.0426255, -0.207723, 0.977259, 0, 10, 12.152)
 
 [node name="Player" parent="." instance=ExtResource("3_3e6td")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 1.4, 0)
+
+[node name="Floor" parent="." instance=ExtResource("4_d1bow")]
