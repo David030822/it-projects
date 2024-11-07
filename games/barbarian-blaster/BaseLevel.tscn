@@ -99,5 +99,25 @@ path_joined = false
 transform = Transform3D(0.0028488, 0, -0.999949, 0, 0.999982, 0, 0.999947, 0, 0.0028488, -22, 0, 6)
 speed = 5.0
 
+[node name="Enemy2" parent="Path3D" instance=ExtResource("2_e7re6")]
+transform = Transform3D(-0.0392028, 0, -0.999184, 0, 0.999982, 0, 0.999182, 0, -0.0392029, -17.0078, 0, 6.21245)
+progress = 5.0
+speed = 5.0
+
+[node name="Enemy3" parent="Path3D" instance=ExtResource("2_e7re6")]
+transform = Transform3D(-0.0329635, 0, -0.99941, 0, 0.999982, 0, 0.999408, 0, -0.0329635, -12.008, 0, 6.39325)
+progress = 10.0
+speed = 5.0
+
+[node name="Enemy4" parent="Path3D" instance=ExtResource("2_e7re6")]
+transform = Transform3D(-0.0254696, 0, -0.999628, 0, 0.999982, 0, 0.999626, 0, -0.0254697, -7.01057, 0, 6.54014)
+progress = 15.0
+speed = 5.0
+
+[node name="Enemy5" parent="Path3D" instance=ExtResource("2_e7re6")]
+transform = Transform3D(-0.0151904, 0, -0.999837, 0, 0.999982, 0, 0.999835, 0, -0.0151904, -2.01062, 0, 6.6435)
+progress = 20.0
+speed = 5.0
+
 [node name="Base" parent="." instance=ExtResource("3_hos78")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, -6.5)
