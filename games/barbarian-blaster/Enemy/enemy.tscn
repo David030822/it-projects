@@ -1,14 +1,60 @@
-[gd_scene load_steps=4 format=3 uid="uid://dvm0fuenj4kgj"]
+[gd_scene load_steps=9 format=3 uid="uid://dvm0fuenj4kgj"]
 
 [ext_resource type="Script" path="res://Enemy/enemy.gd" id="1_bsfwj"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_amklu"]
+no_depth_test = true
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_vjkus"]
+material = SubResource("StandardMaterial3D_amklu")
 radius = 1.0
 height = 3.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3piv7"]
+no_depth_test = true
+shading_mode = 0
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ha553"]
 radius = 1.0
 height = 3.0
+
+[sub_resource type="Animation" id="Animation_pp8ik"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DamageHilight:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_13da3"]
+resource_name = "TakeDamage"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("DamageHilight:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fisjc"]
+_data = {
+"RESET": SubResource("Animation_pp8ik"),
+"TakeDamage": SubResource("Animation_13da3")
+}
 
 [node name="Enemy" type="PathFollow3D"]
 transform = Transform3D(0.999951, 0, 0, 0, 0.999982, 0, 0, 0, 0.999953, 0, 0, 0)
@@ -19,8 +65,19 @@ script = ExtResource("1_bsfwj")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 mesh = SubResource("CapsuleMesh_vjkus")
 
+[node name="DamageHilight" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+visible = false
+material_override = SubResource("StandardMaterial3D_3piv7")
+mesh = SubResource("CapsuleMesh_vjkus")
+
 [node name="EnemyArea3D" type="Area3D" parent="." groups=["enemy_area"]]
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyArea3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 shape = SubResource("CapsuleShape3D_ha553")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fisjc")
+}
