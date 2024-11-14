@@ -1,11 +1,14 @@
-[gd_scene load_steps=12 format=3 uid="uid://s3nexf6k0ou8"]
+[gd_scene load_steps=16 format=3 uid="uid://s3nexf6k0ou8"]
 
 [ext_resource type="PackedScene" uid="uid://dapxrxex1nlka" path="res://RayPickerCamera/ray_picker_camera.tscn" id="1_cueyv"]
 [ext_resource type="MeshLibrary" uid="uid://bxv71oev77uth" path="res://MeshLibraries/SpaceLibrary.tres" id="1_jp0w1"]
 [ext_resource type="PackedScene" uid="uid://dvm0fuenj4kgj" path="res://Enemy/enemy.tscn" id="2_e7re6"]
+[ext_resource type="Script" path="res://enemy_path.gd" id="3_7redf"]
 [ext_resource type="PackedScene" uid="uid://cd4xhx53yu1t4" path="res://Base/base.tscn" id="3_hos78"]
 [ext_resource type="Script" path="res://turret_manager.gd" id="5_r476g"]
 [ext_resource type="PackedScene" uid="uid://bs1s6t1e8xvcn" path="res://Turret/turret.tscn" id="6_al8lp"]
+[ext_resource type="Script" path="res://bank.gd" id="8_pb6md"]
+[ext_resource type="PackedScene" uid="uid://cus5148qklh4n" path="res://DifficultyManager/difficulty_manager.tscn" id="9_erjyv"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1tli4"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -30,6 +33,11 @@ _data = {
 "tilts": PackedFloat32Array(0, 0, 0, 0, 0.261799)
 }
 point_count = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_jiwl2"]
+font_size = 64
+outline_size = 16
+outline_color = Color(0, 0, 0, 1)
 
 [node name="BaseLevel" type="Node3D"]
 
@@ -57,10 +65,13 @@ data = {
 "cells": PackedInt32Array(65535, 2, 0, 65535, 65534, 0, 65531, 65535, 0, 4, 65535, 0, 65533, 65534, 0, 65532, 65534, 0, 65531, 65534, 0, 65531, 0, 0, 65531, 2, 0, 65532, 2, 0, 65533, 2, 0, 65534, 2, 0, 0, 2, 0, 1, 2, 0, 2, 2, 0, 3, 2, 0, 4, 2, 0, 4, 1, 0, 4, 0, 0, 4, 65534, 0, 3, 65534, 0, 2, 65534, 0, 1, 65534, 0, 0, 65534, 0, 65533, 65535, 0, 65532, 65535, 0, 65532, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0)
 }
 
-[node name="Path3D" type="Path3D" parent="."]
+[node name="EnemyPath" type="Path3D" parent="." node_paths=PackedStringArray("difficulty_manager")]
 curve = SubResource("Curve3D_f13lw")
+script = ExtResource("3_7redf")
+enemy_scene = ExtResource("2_e7re6")
+difficulty_manager = NodePath("../DifficultyManager")
 
-[node name="Road" type="CSGPolygon3D" parent="Path3D"]
+[node name="Road" type="CSGPolygon3D" parent="EnemyPath"]
 polygon = PackedVector2Array(-1, 0, -1, 0.1, 1, 0.1, 1, 0)
 mode = 2
 path_node = NodePath("..")
@@ -73,7 +84,7 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 
-[node name="LeftEdge" type="CSGPolygon3D" parent="Path3D"]
+[node name="LeftEdge" type="CSGPolygon3D" parent="EnemyPath"]
 polygon = PackedVector2Array(-1.1, 0, -1.1, 0.15, -0.9, 0.15, -0.9, 0)
 mode = 2
 path_node = NodePath("..")
@@ -86,7 +97,7 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 
-[node name="RightEdge" type="CSGPolygon3D" parent="Path3D"]
+[node name="RightEdge" type="CSGPolygon3D" parent="EnemyPath"]
 polygon = PackedVector2Array(0.9, 0, 0.9, 0.15, 1.1, 0.15, 1.1, 0)
 mode = 2
 path_node = NodePath("..")
@@ -99,36 +110,41 @@ path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 
-[node name="Enemy" parent="Path3D" instance=ExtResource("2_e7re6")]
-transform = Transform3D(0.0028488, 0, -0.999949, 0, 0.999982, 0, 0.999947, 0, 0.0028488, -22, 0, 6)
-speed = 5.0
-
-[node name="Enemy2" parent="Path3D" instance=ExtResource("2_e7re6")]
-transform = Transform3D(-0.0392028, 0, -0.999184, 0, 0.999982, 0, 0.999182, 0, -0.0392029, -17.0078, 0, 6.21245)
-progress = 5.0
-speed = 5.0
-
-[node name="Enemy3" parent="Path3D" instance=ExtResource("2_e7re6")]
-transform = Transform3D(-0.0329635, 0, -0.99941, 0, 0.999982, 0, 0.999408, 0, -0.0329636, -12.008, 0, 6.39325)
-progress = 10.0
-speed = 5.0
-
-[node name="Enemy4" parent="Path3D" instance=ExtResource("2_e7re6")]
-transform = Transform3D(-0.0254696, 0, -0.999627, 0, 0.999982, 0, 0.999625, 0, -0.0254696, -7.01057, 0, 6.54014)
-progress = 15.0
-speed = 5.0
-
-[node name="Enemy5" parent="Path3D" instance=ExtResource("2_e7re6")]
-transform = Transform3D(-0.0151904, 0, -0.999836, 0, 0.999982, 0, 0.999834, 0, -0.0151904, -2.01062, 0, 6.6435)
-progress = 20.0
-speed = 5.0
+[node name="Timer" type="Timer" parent="EnemyPath"]
+wait_time = 2.0
+autostart = true
 
 [node name="Base" parent="." instance=ExtResource("3_hos78")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6, 2, -6.5)
-max_health = 5
+max_health = 30
 
 [node name="TurretManager" type="Node3D" parent="." node_paths=PackedStringArray("enemy_path")]
 transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0, 0, 0)
 script = ExtResource("5_r476g")
 turret = ExtResource("6_al8lp")
-enemy_path = NodePath("../Path3D")
+enemy_path = NodePath("../EnemyPath")
+
+[node name="Bank" type="MarginContainer" parent="." groups=["bank"]]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+script = ExtResource("8_pb6md")
+
+[node name="Label" type="Label" parent="Bank"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+text = "placeholder"
+label_settings = SubResource("LabelSettings_jiwl2")
+
+[node name="DifficultyManager" parent="." instance=ExtResource("9_erjyv")]
+
+[connection signal="timeout" from="EnemyPath/Timer" to="EnemyPath" method="spawn_enemy"]
+[connection signal="stop_spawning_enemies" from="DifficultyManager" to="EnemyPath" method="_on_difficulty_manager_stop_spawning_enemies"]
