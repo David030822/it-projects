@@ -1,24 +1,19 @@
 [gd_scene load_steps=3 format=3 uid="uid://cd4xhx53yu1t4"]
 
 [ext_resource type="Script" path="res://Base/base.gd" id="1_80xpu"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_piyqk"]
-albedo_color = Color(0.886275, 0, 0.0196078, 1)
+[ext_resource type="PackedScene" uid="uid://do8rkrxblishx" path="res://Assets/Base.glb" id="2_bonvk"]
 
 [node name="Base" type="Node3D" groups=["base"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 script = ExtResource("1_80xpu")
 max_health = 6
 
-[node name="CSGCylinder3D" type="CSGCylinder3D" parent="."]
-radius = 2.0
-height = 4.0
-sides = 32
-material = SubResource("StandardMaterial3D_piyqk")
-
 [node name="Label3D" type="Label3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.5, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.27033, 0)
 billboard = 1
 text = "starting health"
 font_size = 500
 outline_size = 100
+
+[node name="Base" parent="." instance=ExtResource("2_bonvk")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -2, 0)

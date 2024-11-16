@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bo3jqxkgepwtj"]
+[gd_scene load_steps=4 format=3 uid="uid://bo3jqxkgepwtj"]
 
 [ext_resource type="Script" path="res://UserInterface/victory_layer.gd" id="1_l1sss"]
+[ext_resource type="Texture2D" uid="uid://btqwjdo5wmkwj" path="res://Assets/star.png" id="2_r34qj"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_lag82"]
 font_size = 96
@@ -38,6 +39,57 @@ layout_mode = 2
 layout_mode = 2
 text = "Victory"
 label_settings = SubResource("LabelSettings_lag82")
+horizontal_alignment = 1
+
+[node name="StarContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Star1" type="TextureRect" parent="CenterContainer/PanelContainer/VBoxContainer/StarContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_r34qj")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Star2" type="TextureRect" parent="CenterContainer/PanelContainer/VBoxContainer/StarContainer"]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_r34qj")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Star3" type="TextureRect" parent="CenterContainer/PanelContainer/VBoxContainer/StarContainer"]
+unique_name_in_owner = true
+modulate = Color(0, 0, 0, 1)
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("2_r34qj")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="SurvivedLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Survived + 1"
+horizontal_alignment = 1
+
+[node name="HealthLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Full Health + 1"
+horizontal_alignment = 1
+
+[node name="MoneyLabel" type="Label" parent="CenterContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "Money money money + 1"
 horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/PanelContainer/VBoxContainer"]
