@@ -7,7 +7,7 @@ extends MarginContainer
 var gold: int:
 	set(gold_in):
 		gold = max(gold_in, 0)
-		label.text = "gold: " + str(gold)
+		label.text = "Gold: " + str(gold)
 
 func _ready() -> void:
 	gold = starting_gold
