@@ -400,4 +400,4 @@ size = Vector3(64, 1, 64)
 material = ExtResource("1_66dv2")
 
 [node name="Enemy" parent="." instance=ExtResource("4_vpm1p")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.3855, 1, -14.6397)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.4291, 1, -14.2468)
