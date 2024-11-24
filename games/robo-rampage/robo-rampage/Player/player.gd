@@ -7,15 +7,20 @@ const SPEED = 5.0
 @export var gravity: float = 10
 @export var fall_multiplier: float = 2.5
 
+@onready var camera_pivot: Node3D = $CameraPivot
+@onready var damage_animation_player: AnimationPlayer = $DamageTexture/DamageAnimationPlayer
+@onready var game_over_menu: Control = $GameOverMenu
+
 var mouse_motion := Vector2.ZERO
 var hitpoints: int = max_hitpoints:
 	set(value):
+		if value < hitpoints:
+			damage_animation_player.stop(false)
+			damage_animation_player.play("TakeDamage")
 		hitpoints = value
 		print(hitpoints)
 		if hitpoints <= 0:
-			get_tree().quit()
-
-@onready var camera_pivot: Node3D = $CameraPivot
+			game_over_menu.game_over()
 
 func _ready() -> void:
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
