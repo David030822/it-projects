@@ -1,9 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://bfhhshttpiota"]
+[gd_scene load_steps=14 format=3 uid="uid://bfhhshttpiota"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_lqevn"]
 [ext_resource type="Script" path="res://Player/smooth_camera.gd" id="2_n4gcu"]
 [ext_resource type="Script" path="res://Player/crosshair.gd" id="3_teq6t"]
+[ext_resource type="PackedScene" uid="uid://ty5wu27i0wx6" path="res://Weapons/Rifle.tscn" id="3_voles"]
 [ext_resource type="PackedScene" uid="uid://bx6wg2h4tf1ve" path="res://Weapons/SMG.tscn" id="3_wpcb2"]
+[ext_resource type="Script" path="res://Player/weapon_handler.gd" id="4_8onax"]
 [ext_resource type="Texture2D" uid="uid://cxunm0ma471qe" path="res://Player/damage.png" id="5_a2xws"]
 [ext_resource type="PackedScene" uid="uid://ccrg2ejjmttri" path="res://Player/game_over_menu.tscn" id="6_lpexi"]
 
@@ -90,8 +92,6 @@ top_level = true
 cull_mask = 1048573
 script = ExtResource("2_n4gcu")
 
-[node name="SMG" parent="CameraPivot/SmoothCamera" instance=ExtResource("3_wpcb2")]
-
 [node name="RemoteTransform3D" type="RemoteTransform3D" parent="CameraPivot/SmoothCamera"]
 remote_path = NodePath("../../../SubViewportContainer/SubViewport/WeaponCamera")
 
@@ -103,6 +103,7 @@ offset_left = -1.0
 offset_right = -1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="Crosshair" type="Control" parent="CenterContainer"]
 layout_mode = 2
@@ -127,11 +128,21 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3, 0)
 cull_mask = 2
 fov = 40.0
 
+[node name="WeaponHandler" type="Node3D" parent="SubViewportContainer/SubViewport/WeaponCamera" node_paths=PackedStringArray("weapon_1", "weapon_2")]
+script = ExtResource("4_8onax")
+weapon_1 = NodePath("Rifle")
+weapon_2 = NodePath("SMG")
+
+[node name="Rifle" parent="SubViewportContainer/SubViewport/WeaponCamera/WeaponHandler" instance=ExtResource("3_voles")]
+
+[node name="SMG" parent="SubViewportContainer/SubViewport/WeaponCamera/WeaponHandler" instance=ExtResource("3_wpcb2")]
+
 [node name="DamageTexture" type="TextureRect" parent="."]
 modulate = Color(1, 1, 1, 0)
 offset_right = 40.0
 offset_bottom = 40.0
 pivot_offset = Vector2(576, 324)
+mouse_filter = 2
 texture = ExtResource("5_a2xws")
 
 [node name="DamageAnimationPlayer" type="AnimationPlayer" parent="DamageTexture"]

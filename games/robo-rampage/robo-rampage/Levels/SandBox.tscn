@@ -339,7 +339,7 @@ sides = 16
 material = ExtResource("3_y2hms")
 
 [node name="CSGCylinder3D3" type="CSGCylinder3D" parent="NavigationRegion3D/LevelObjects"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1.5, -11)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 1, -11)
 use_collision = true
 radius = 3.0
 sides = 16
