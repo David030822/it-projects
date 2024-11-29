@@ -81,7 +81,9 @@ font = ExtResource("9_t7uh6")
 font_size = 64
 
 [node name="Player" type="CharacterBody3D" groups=["player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0046587, 0.0130451, 0.00232124)
 script = ExtResource("1_lqevn")
+speed = 6.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_a0d6l")
