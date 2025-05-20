@@ -1,0 +1,38 @@
+Projekt téma: autovit.ro weboldalról adatokat feldolgozó és statisztikát készítő alkalmazás.
+Platform: mobil + (web)
+Felépítés: UI - Flutter, Adatbázis: MySQL, backend: Python + API-k (dotnet v. PHP)
+
+Funkcionalitások:
+	- login / register new user
+	- search for dealers from autovit.ro
+	- save a dealer as favorite
+	- list every car from a dealer
+	- when a car is removed, move it to sold cars
+	- calculate average price for cars on sale and sold cars
+	- sold cars / month
+	- diagrams, heatmaps(when were cars sold in each month)
+	- if the user is a dealer, add their page to own cars, calculate everything as mentioned above
+	- (chatbot to compare own cars to other dealers' cars)
+	- follow other users -> see their favorite dealers
+	- light mode / dark mode for UI
+	- logout
+
+Adatbázis táblák:
+	- AppLogs: kik és mikor használták az alkalmazást
+	- AppDevices: milyen eszközök vannak regisztrálva
+	- Users: ID, name, ...
+	- Dealers: ID, ...
+	- Cars: ID, DealerID, ...
+	- OwnCars: ID, ...
+	- Favorites: ID, ...
+	- Following: ID, UserID, ...
+	- bármi más, amire még szükség lesz
+
+Adatok leszedése: Python scriptek
+APIk: dotnet vagy PHP -> Funkcionalitások megvalósítása
+UI: oldalak: login / register page, home page, favorites page, settings page, profile page, friends page, diagrams / heatmap page
+
+Diagrammok: Use-case, ER-diagramm (adatbázis)
+Dokumentáció
+
+Egyelőre elég ennyi xD

@@ -1,0 +1,52 @@
+name: mobile_ui
+description: "Mobile UI for Software Project"
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.5.1
+
+flutter_native_splash:
+  image: asstes/images/app_logo_rounded.png
+  android: true
+  ios: true
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_native_splash: ^2.0.0
+  syncfusion_flutter_charts: ^20.4.40
+  cupertino_icons: ^1.0.2
+  provider: ^6.0.5
+  google_fonts: ^6.2.1
+  google_nav_bar: ^5.0.6
+  flutter_slidable: ^3.1.1
+  image_picker: ^0.8.5+3
+  permission_handler: ^10.2.0
+  http: ^1.2.2
+  rename_app: ^1.6.1
+  shared_preferences: ^2.0.15
+  jwt_decoder: ^2.0.1
+  url_launcher: ^6.3.1
+  sign_in_with_apple: ^6.1.3
+  firebase_core: ^2.3.0 
+  firebase_auth: ^4.4.0
+  google_sign_in: ^6.0.0
+  isar: ^3.1.0+1
+  isar_flutter_libs: ^3.1.0+1
+  path_provider: ^2.1.4
+  flutter_heatmap_calendar: ^1.0.5
+  intl: ^0.18.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^4.0.0
+  isar_generator: ^3.1.0+1
+  build_runner: ^2.4.11
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/

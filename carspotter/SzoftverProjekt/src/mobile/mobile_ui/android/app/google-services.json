@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "813402738646",
+    "project_id": "carspotter-597c8",
+    "storage_bucket": "carspotter-597c8.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:813402738646:android:7def61acf3192ad951de77",
+        "android_client_info": {
+          "package_name": "com.example.mobile_ui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "813402738646-ou33e5fe56drj5fd1a7k0l8q6911v3e3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBc2rmvfJR7-CxqfvAttlZzqTmknZ241mU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "813402738646-ou33e5fe56drj5fd1a7k0l8q6911v3e3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
