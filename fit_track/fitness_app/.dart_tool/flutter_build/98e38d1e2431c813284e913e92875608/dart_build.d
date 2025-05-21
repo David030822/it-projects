@@ -1,1 +1,0 @@
- C:\\Cuccok\\Sapietia\\Info\\Allamvizsga\\Allamvizsga-2025\\fitness_app\\.dart_tool\\flutter_build\\98e38d1e2431c813284e913e92875608\\dart_build_result.json: 

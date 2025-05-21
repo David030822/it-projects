@@ -1,0 +1,112 @@
+# -----------------------------
+# 🌐 General OS & Editor stuff
+# -----------------------------
+.DS_Store
+Thumbs.db
+*.log
+*.swp
+*.swo
+*.tmp
+*.bak
+
+# VSCode & JetBrains IDEs
+.vscode/
+.idea/
+
+# -----------------------------
+# 💻 Flutter & Dart
+# -----------------------------
+.dart_tool/
+.flutter-plugins
+.packages
+.pub-cache/
+build/
+*.lock
+*.class
+*.dill
+*.tmp
+*.log
+*.snapshot
+*.apk
+*.aab
+*.ipa
+
+# -----------------------------
+# 📱 Android
+# -----------------------------
+.gradle/
+local.properties
+*.iml
+*.apk
+*.dex
+*.class
+*.jar
+*.keystore
+
+# -----------------------------
+# 🧱 .NET & C#
+# -----------------------------
+bin/
+obj/
+*.user
+*.suo
+*.csproj.user
+*.vspscc
+*.vssscc
+*.pdb
+*.cache
+*.dbmdl
+*.log
+.vs/
+Generated_Code/
+
+# -----------------------------
+# 🐍 Python
+# -----------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg
+*.egg-info/
+dist/
+build/
+env/
+venv/
+ENV/
+*.sqlite3
+
+# -----------------------------
+# 🎮 Godot
+# -----------------------------
+.import/
+.export/
+export.cfg
+export_presets.cfg
+*.godot/tmp/
+*.mono/
+mono_crash.*
+
+# -----------------------------
+# 🔒 Secrets (just in case)
+# -----------------------------
+*.env
+.env.*
+*.key
+*.pem
+*.crt
+secrets.json
+
+# -----------------------------
+# 🔁 Node/npm (if you ever use it)
+# -----------------------------
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+
+# -----------------------------
+# 🔍 Git
+# -----------------------------
+!.gitignore
